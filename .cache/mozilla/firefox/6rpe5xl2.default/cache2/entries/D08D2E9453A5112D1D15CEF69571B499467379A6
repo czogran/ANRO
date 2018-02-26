@@ -1,0 +1,2659 @@
+/* INCLUDE JS { */
+/*jslint browser: true*/
+/*global document */
+
+(function() {
+	var
+			el, els = ["figcaption", "details", "address", "section", "article", "footer", "header", "hgroup", "figure", "aside", "menu", "nav", "time", "main"];
+	for (el in els) {
+		if (els.hasOwnProperty(el)) {
+			document.createElement(els[el]);
+		}
+	}
+}());/*jslint browser: true*/
+/*global WP, $, console */
+
+var Utils = {
+	PATH_LOG_ERROR: "errors_logged.json?_action=logJSError",
+	onError: function(desc, page, line, chr) {
+
+		/*if (this.isLoggingErrors) {
+		 var $ = (typeof WP !== "undefined" && WP.$) ? WP.$ : $;
+		 if (typeof $ !== "undefined" && typeof $.postJSON === "function") {
+		 $.postJSON(this.PATH_LOG_ERROR, {
+		 info: JSON.stringify(desc + (line ? ", line: " + line + (chr ? (" [" + chr + "]") : "") : "") + (page ? ", in: " + page : ""))
+		 });
+		 }
+		 }*/
+
+		Utils.trace();
+		Utils.error('REPO JavaScript error:' + '\n\tError description: \t' + desc + '\n\tPage address:      \t' + page + '\n\tLine number:       \t' + line + (chr ? ('\n\tChar number:       \t' + chr) : ''));
+
+		return true;
+	},
+	debug: function(data) {
+		this.isDebugging = data && (typeof console !== "undefined");
+	},
+	develope: function(data) {
+		this.isDeveloped = data;
+	},
+	logErrors: function(data) {
+		this.isLoggingErrors = data;
+	},
+	log: function() {
+		if (this.isDebugging && typeof console.log === "function") {
+			console.log.apply(console, arguments);
+		}
+	},
+	warn: function() {
+		if (this.isDebugging && typeof console.warn === "function") {
+			console.warn.apply(console, arguments);
+		}
+	},
+	info: function() {
+		if (this.isDebugging && typeof console.info === "function") {
+			console.info.apply(console, arguments);
+		}
+	},
+	error: function() {
+		if (this.isDebugging && typeof console.error === "function") {
+			console.error.apply(console, arguments);
+		}
+	},
+	trace: function() {
+		if (this.isDebugging && typeof console.trace === "function") {
+			console.trace.apply(console, arguments);
+		}
+	}
+};
+Utils.debug(false);
+
+var
+		INVALID_FIRST_NAME = "wpisz imi\u0119",
+		INVALID_LAST_NAME = "wpisz nazwisko",
+		INVALID_SEX = "wybierz p\u0142e\u0107",
+		INVALID_BIRTH_DAY = "wpisz poprawny dzie\u0144",
+		INVALID_BIRTH_MONTH = "wpisz poprawny miesi\u0105c",
+		INVALID_BIRTH_YEAR = "wpisz poprawny rok",
+		INVALID_BIRTH_DATE = "wpisz poprawn\u0105 dat\u0119",
+		INVALID_LOGIN_EMAIL = "Wpisz poprawny login. Mo\u017cesz u\u017cy\u0107 liter i cyfr oraz kropki, my\u015blnika i znaku podkre\u015blenia jako separatora.",
+		INVALID_LOGIN = "wpisz poprawny login",
+		INVALID_EMAIL = "wpisz poprawny adres e-mail",
+		INVALID_PHONE_NUMBER = "wprowad\u017a numer w formacie:<br> 501501501",
+		INVALID_PASSWORD = "wpisz poprawne has\u0142o",
+		INVALID_PASSWORD_SAME_AS_OLD = "nowe has\u0142o musi r\u00f3\u017cni\u0107 si\u0119 od starego",
+		INVALID_PASSWORD_CONTAINS_LOGIN = "has\u0142o nie mo\u017ce zawiera\u0107 loginu",
+		INVALID_PASSWORDS_DIFFERENT = "has\u0142a nie zgadzaj\u0105 si\u0119",
+		INVALID_HELPER_EMAIL = "wprowad\u017a e-mail w formacie:<br> jan.kowalski@wp.pl",
+		INVALID_HELPER_EMAIL_SAME_LOGIN = "pomocniczy adres e-mail nie mo\u017ce by\u0107 adresem wp.pl",
+		INVALID_CITY_SIZE = "wybierz wielko\u015b\u0107 miejscowo\u015bci",
+		INVALID_EDUCATION = "wybierz wykszta\u0142cenie",
+		INVALID_JOB = "wybierz zaw\u00f3d",
+		INVALID_EMAIL_ACCOUNT = "wybierz rodzaj konta",
+		INVALID_CAPTCHA = "wpisz kod z obrazka",
+		INVALID_CALCULATION = "wpisz wynik dzia\u0142ania",
+		INVALID_CLAUSE_PERSONAL_DATA = "zaznacz zgod\u0119 dane osobowe",
+		INVALID_CLAUSE_USAGE_DATA = "zaznacz zgod\u0119 dane korzystanie",
+		INVALID_CLAUSE_ADS_EMAIL = "zaznacz zgod\u0119 handlowe na email",
+		INVALID_CLAUSE_ADS_PHONE = "zaznacz zgod\u0119 handlowe na telefon",
+		INVALID_CLAUSE_TERMS = "zaakceptuj regulamin",
+		INVALID_CLAUSE_ALL = "zaakceptuj akceptacje :)",
+		INVALID_AGREEMENT = "zaakceptuj zgod\u0119",
+		INVALID_AGREEMENT_CONFIRM = "potwierd\u017a wymagane zgody",
+		INVALID_LEGAL_EMAIL = "wpisz adres e-mail opiekuna prawnego",
+		INVALID_CONFIRMATION_TOKEN = "wpisz poprawny kod",
+		EMPTY_PHONE_NUMBER = "wprowad\u017a numer telefonu",
+		EMPTY_PASSWORD = "wpisz has\u0142o",
+		EMPTY_LOGIN_EMAIL = "wpisz login lub email",
+		EMPTY_EMAIL = "wpisz adres e-mail",
+		EMPTY_MESSAGE = "wpisz wiadomo\u015b\u0107",
+		EMPTY_ANSWER = "wpisz odpowied\u017a",
+		EMPTY_QUESTION = "wybierz lub wpisz pytanie",
+		EMPTY_REASON = "wype\u0142nij ankiet\u0119",
+		EMPTY_GG_AGREEMENT = "Aby przej\u015b\u0107 dalej musisz wyrazi\u0107 zgod\u0119 na pod\u0142\u0105czenie kont WP i GG Network.",
+		EMPTY_MARKETING_AGREEMENT = "Najpierw musisz zaakceptowa\u0107 powy\u017csze zgody.",
+		ACTION_VALIDATE_CAPTCHA = "sprawdz_slowo.json";
+ACTION_AJAX_JSON_RESPONSE = "edit_user.json";
+ACTION_AJAX_GET_ATTRIBUTE = "get_attribute.json";
+ACTION_LOGIN_AVAILABLE = "login_available.json";
+ACTION_LOGIN_EXISTS = "login_exists.json";
+ACTION_PASSWORD_POPULAR = "czy_haslo_popularne.json";
+UPLOAD_AVATAR_BACK_URL = "/eu/uploadresult.html";
+UPLOAD_AVATAR_GET_DATA = "/eu/uploadstatus.html";
+UPLOAD_AVATAR_SET_IMAGE_DATA = "upload_avatar.json";
+UPLOAD_AVATAR_STEP_UPLOAD = "dodaj_awatar_krok1.html";
+UPLOAD_AVATAR_STEP_CROP = "dodaj_awatar_krok2.html";
+
+var
+		B, D, W,
+		locker = WP.$("<div>").addClass("locker"),
+		loader = WP.$("<div>").addClass("loader"),
+		alertHolder = WP.$("<div>").addClass("alert"),
+		popup = WP.$("<div>").addClass("popup");
+
+WP.$.postJSON = function(u, d, callback) {
+	return WP.$.post(u, d, callback, "json");
+}
+
+function centerPopup() {
+	popup.show()
+			.css({
+		width: "auto",
+		height: "auto"
+	})
+			.css({
+		marginLeft: -popup.outerWidth() / 2,
+		marginTop: -popup.outerHeight() / 2,
+		width: popup.width()
+				//height: popup.height(),
+	});
+}
+
+function closePopup() {
+	popup.fadeOut(100, function() {
+		popup.detach();
+		closeLocker();
+		locker.unbind("click", closePopupAndLocker);
+	});
+	B.unbind("keydown", onEsc);
+}
+
+function onEsc(e) {
+	if (e.keyCode == 27)
+		closePopup();
+}
+
+function closePopupAndLocker(e) {
+	if (e.target == e.currentTarget)
+		closePopup();
+}
+
+function closeLoader() {
+	loader.detach();
+}
+
+function showLoader(where) {
+	loader.appendTo(where);
+}
+
+function closeLocker() {
+	locker.detach();
+	B.css("overflow", "auto");
+}
+
+function showLocker() {
+	Utils.info("showLocker");
+	locker.appendTo(B);
+	B.css("overflow", "hidden");
+}
+
+function showPopup() {
+	initInactiv();
+	popup.hide().fadeIn(200);
+}
+
+function appendPopup(view) {
+	popup.empty().append(view.show()).appendTo(B);
+}
+
+function showActivLocker() {
+	showLocker();
+	locker.bind("click", closePopupAndLocker);
+	B.bind("keydown", onEsc);
+}
+
+function closeAlert(what) {
+	what.slideUp(100);
+}
+
+function showAlert(where, type, text, closeTime) {
+	if (alertHolder.is(":visible"))
+		alertHolder = WP.$("<div>").addClass("alert");
+
+	where.find("> .alert-" + type).remove();
+
+	if (text)
+		alertHolder.hide().prependTo(where).removeClass("alert-success alert-error alert-warning alert-info")
+				.addClass("alert-" + type).html(text).slideDown(100, function() {
+			var alert = alertHolder;
+			if (closeTime) {
+				setTimeout(function() {
+					closeAlert(alert);
+				}, closeTime);
+			}
+		});
+}
+
+function addOK(where, text) {
+	where.find(".ok").remove();
+	if (text)
+		$("<small>").addClass("ok").text(text).appendTo(where);
+}
+
+function zeroFill(input, len) {
+	while (String(input).length < len)
+		input = "0" + String(input);
+	return input;
+}
+
+function showDialogAlert(title, text) {
+	var dialogAlert = WP.$(".bxDialogAlert"),
+			btnAlertClose = dialogAlert.find(".btnClose");
+
+	dialogAlert.find('h3', dialogAlert).html(title);
+	dialogAlert.find('p', dialogAlert).html(text);
+
+	showActivLocker();
+	appendPopup(dialogAlert);
+	centerPopup();
+
+	btnAlertClose.bind("click", closePopup);
+
+	showPopup();
+}
+
+function checkValidity(valid, silent, clear) {
+	Utils.log("checkValidity", valid);
+
+	if (valid.length == 0)
+		return false;
+
+	for (var i in valid)
+	{
+		if (!silent)
+		{
+			if (valid[i].state !== true) {
+				valid[i].change();
+				return false;
+			}
+		}
+		else
+		{
+			valid[i].trigger("validate");
+		}
+
+		if (clear)
+			valid[i].trigger("clear");
+	}
+	return true;
+}
+
+
+function buildOnValidate(what, alert) {
+	return {
+		onError: function() {
+			what.infoText.html(alert);
+			what.info.fadeIn();
+		},
+		onSuccess: function() {
+			what.info.hide();
+		}
+	}
+}
+
+function prepareField(sel)
+{
+	var obj = $(sel),
+			infoBoxId = sel + "Info";
+	obj.before(getInfoBoxContainer(infoBoxId.substring(1)));
+	obj.info = $(infoBoxId);
+	obj.infoText = obj.info.find(".infoText");
+	//Utils.log(obj,obj.info, obj.infoText);
+	return obj;
+}
+
+function getInfoBoxContainer(htmlId) {
+	return $("<div class='bxKomunikat red' id='" + htmlId + "'><div class='content'><strong class='infoText'></strong></div></div>");
+}
+
+function cbSet(cbArray) {
+	$.each(cbArray, function(idx, val) {
+		val.change(function() {
+			$.each(cbArray, function(tidx, tval) {
+				if (tidx == idx) { return; }
+				tval.attr("checked", val.is(":checked"));
+			});
+		});
+	});
+}
+
+function removeEmptyOption() {
+	$(this).find('option[value="-1"]').remove();
+}
+
+function onlyAlpha(e) {
+	Utils.log(e.which);
+	if (isKeyPrintable(e.which))
+		if (!isKeyDelete(e.which) && !isKeyAlpha(e.which))
+			e.preventDefault();
+}
+
+function onlyNumeric(e) {
+	if (isKeyPrintable(e.which))
+		if (!isKeyDelete(e.which) && !isKeyNumeric(e.which))
+			e.preventDefault();
+}
+
+function onlyLogin(e) {
+	if (isKeyPrintable(e.which))
+		if (!isKeyDelete(e.which) && !isKeyNumeric(e.which) && !isKeyAlpha(e.which) && !isKeyLoginSpecialChar(e.which))
+			e.preventDefault();
+}
+
+function onTermsTogglersClick(e) {
+	e.preventDefault();
+	var
+			toggler = $(this),
+			terms = toggler.nextAll(".bxRegulamin").find("iframe");
+
+	if (!toggler.data("state")) {
+		toggler.text("kliknij, aby zwin\u0105\u0107");
+		toggler.data("state", true);
+		terms.stop(true, true).animate({
+			height: 500
+		}, 200);
+	} else {
+		toggler.text("kliknij, aby rozwin\u0105\u0107");
+		toggler.data("state", false);
+		terms.stop(true, true).animate({
+			height: 100
+		}, 200);
+	}
+}
+
+
+function prepareValidateCaptchOnSubmit(btnSubmit, validArray, code, form) {
+	btnSubmit.bind("click", function(e) {
+		if (!checkValidity(validArray)) {
+			e.preventDefault();
+		} else {
+			$.post(ACTION_VALIDATE_CAPTCHA, {
+				slowo: cleanValue(code)
+			}, function() {
+				form.submit();
+			}).error(function() {
+				e.preventDefault();
+				$("#refreshCaptcha").click();
+				code.val("").change();
+			});
+		}
+	});
+}
+
+function preparePasswordPowerMeter(password, passwordRepeat, login)
+{
+	var
+			passwordPowerInfo = $("#passwordPowerInfo").hide(),
+			passwordPowerInfoItems = passwordPowerInfo.find("li"),
+			powerBar = passwordPowerInfo.find("#powerBar"),
+			passwordRareTimeout,
+			isLoading = false;
+	validPasswordCheck = [false, false, false, false];
+
+	function validatePart(validation, el, i, callback) {
+		var item = passwordPowerInfoItems.eq(i);
+		var valid = validation(el);
+		item.toggleClass("success", valid);
+		item.toggleClass("error", !valid);
+		callback && callback(i, valid);
+	}
+
+	function isPasswordComplete() {
+		//Utils.log("isPasswordComplete ", isLoading, validPasswordCheck);
+		var passwordDeco = password.nextAll(".deco");
+
+		if (password.is(':visible')) {
+			if (isLoading) {
+				passwordDeco.addClass("loader");
+				return true;
+			} else {
+				passwordDeco.removeClass("loader");
+				return $.inArray(false, validPasswordCheck) == -1;
+			}
+		}
+		else
+			return true;
+	}
+
+	function updatePasswordPowerBar(i, state) {
+		validPasswordCheck[i] = state;
+		if ($.inArray(false, validPasswordCheck) > -1)
+			powerBar.removeClass("m1 m2 m3 m4 m5");
+		else
+			powerBar.removeClass("m1 m2 m3 m4 m5").addClass("m" + Math.max(0, Math.min(5, Math.ceil((cleanValue(password).length - 7) / 3))));
+	}
+
+	function hasNoLogin(el) {
+		var regExp = new RegExp(cleanValue(login).replace('.', '\.'));
+		if (cleanValue(login))
+			return !regExp.test(cleanValue(el));
+		else
+			return true;
+	}
+
+	function validatePasswords() {
+		if (isEqualOrEmpty(password, passwordRepeat)) {
+			//passwordRepeat.info.hide();
+			//passwordPowerInfo.hide();
+			return true;
+		}
+		else {
+			passwordRepeat.infoText.html(INVALID_PASSWORDS_DIFFERENT);
+			passwordRepeat.info.fadeIn();
+			passwordPowerInfo.hide();
+			return false;
+		}
+	}
+
+	function calculatePasswordPower(e) {
+
+		Utils.info("calculatePasswordPower", e.type);
+
+		//if (!passwordPowerInfo.is(":visible")){
+		password.info.hide();
+		passwordRepeat.info.hide();
+		passwordPowerInfo.fadeIn();
+		//}
+
+		if (e && e.type == "keyup" && isKeyPrintable(e.which)) {
+
+			validatePart(isPasswordLength, password, 0, updatePasswordPowerBar);
+			validatePart(isPasswordComplicated, password, 1, updatePasswordPowerBar);
+			validatePart(hasNoLogin, password, 2, updatePasswordPowerBar);
+
+			clearTimeout(passwordRareTimeout);
+
+			if (isPassword(password)) {
+
+				isLoading = true;
+				passwordRareTimeout = setTimeout(function() {
+					$.getJSON(ACTION_PASSWORD_POPULAR, {
+						password: cleanValue(password)
+					}, function(response) {
+						isLoading = false;
+						validatePart(function() {
+							return response.rare;
+						}, password, 3, updatePasswordPowerBar);
+
+						password.change();
+						//if (!isPasswordComplete())
+						//	password.focus();
+					});
+				}, 500);
+			} else {
+				clearTimeout(passwordRareTimeout);
+			}
+		}
+	}
+
+	password
+			.keyup(calculatePasswordPower)
+			.focus(function(e) {
+		setTimeout(function() {
+			calculatePasswordPower(e);
+		}, 10);
+	});
+
+	return {
+		validateHasNoLogin: function() {
+			return	validatePart(hasNoLogin, password, 2, updatePasswordPowerBar);
+		},
+		passwordPowerInfo: passwordPowerInfo,
+		calculatePasswordPower: calculatePasswordPower,
+		validatePasswords: validatePasswords,
+		isPasswordComplete: isPasswordComplete,
+		hasNoLogin: hasNoLogin
+	}
+}
+
+function receiveMessage(event)
+{
+	try {
+	var data = JSON.parse(event.originalEvent.data);
+	} catch (e) { return } 
+
+	Utils.info("receiveMessage", window, top);
+	Utils.info("receiveMessage", data);
+
+	switch (data.action)
+	{
+		case "closePopup":
+			closePopup();
+			break;
+
+		case "setAvatar":
+			setAvatar();
+			$("#btnAddAvatar").show();
+			closePopup();
+			break;
+
+
+		case "getHeight":
+			var answerData = JSON.stringify({
+				action: "setHeight",
+				height: WP.$(document).height()
+			});
+
+			event.originalEvent.source.postMessage(answerData, "*");
+			break;
+
+		case "setHeight":
+			if (data.height > 0)
+			{
+				var avatarFrame = WP.$("#avatarFrame");
+				Utils.log("avatarFrame", avatarFrame);
+				avatarFrame.height(data.height);
+			}
+			centerPopup();
+			break;
+	}
+}
+
+function setAvatar() {
+	$(".avatar img").attr("src", function(i, val) {
+		return val + "&nc=1";
+	});
+}
+
+
+var captchaRefreshCounter = 1;
+
+$(window).unbind("message").bind("message", receiveMessage);
+
+WP.$(function($) {
+	W = $(window);
+	D = $(document);
+	B = $("body");
+
+	$(".rozwinRegulamin").unbind("click").bind("click", onTermsTogglersClick);
+
+	B.delegate("#refreshCaptcha", "click", function(e) {
+		e.preventDefault();
+		var
+				captchaImg = $('#frmCaptcha img'),
+				captchaUrl = captchaImg.attr('src');
+
+		captchaImg.attr('src', function() {
+			return captchaUrl + '&r=' + captchaRefreshCounter++;
+		});
+	});
+});
+(function($) {
+
+	// slider, popup
+	$.fn.fullScreen = function(zIndex) {
+		return this.each(function() {
+			$(this).css({
+				position: 'fixed',
+				zIndex: zIndex || 1000,
+				width: '100%',
+				height: '100%',
+				left: '0px',
+				top: '0px'
+			});
+		});
+	};
+
+	// slider, popup
+	$.fn.center = function() {
+		return this.each(function() {
+			var $this = $(this);
+			$this.css({
+				width: "auto",
+				height: "auto",
+				position: "absolute",
+				left: "50%",
+				top: "50%"
+			}).css({
+				width: $this.width(),
+				height: $this.height()
+			}).css({
+				marginLeft: -$this.width() / 2,
+				marginTop: -$this.height() / 2
+			});
+		});
+	};
+
+
+	$.fn.centerRelative = function() {
+		return this.each(function() {
+			var
+					me = $(this),
+					myParent = me.parent(),
+					update = function() {
+				me.css({
+					position: "absolute",
+					left: (myParent.width() - me.width()) / 2,
+					top: (myParent.height() - me.height()) / 2
+				});
+			};
+			if (!me.width() || !me.height()) {
+				me.load(update).attr("src", me.attr("src"));
+			} else {
+				update();
+			}
+		});
+	};
+
+
+	$.fn.update = function(f) {
+		return this.each(function() {
+			var item = $(this).load(function() {
+				f();
+			});
+			item.attr('src', item.attr('src'));
+		});
+	};
+
+	// simple gallery
+	$.fn.refreshCenter = function() {
+		return this.each(function() {
+			var item = $(this);
+			if (item.is('img')) {
+				item.attr('src', item.attr('src')).load(function() {
+					item.center();
+				});
+			}
+		});
+	};
+
+	$.fn.dimensions = function(input) {
+		if (typeof input === "object") {
+			if (typeof input.width !== "undefined") {
+				$(this).width(parseInt(input.width, 10));
+			}
+			if (typeof input.height !== "undefined") {
+				$(this).height(parseInt(input.height, 10));
+			}
+		}
+		return {
+			width: $(this).width(),
+			height: $(this).height()
+		};
+	};
+
+	// slider
+	$.fn.fitParent = function(smaller) {
+
+		return this.each(function() {
+
+			var me = $(this),
+					myParent = me.parent(),
+					update = function() {
+
+				me.css({
+					width: "auto",
+					height: "auto"
+				});
+
+				var
+						width = me.width(),
+						height = me.height(),
+						scale = Math.max(width / myParent.width(), height / myParent.height());
+
+				if (smaller || scale > 1) {
+					me.css({
+						width: Math.round(width / scale),
+						height: Math.round(height / scale)
+					});
+				}
+			};
+			if (!me.width() || !me.height()) {
+				me.load(update).attr("src", me.attr("src"));
+			} else {
+				update();
+			}
+		});
+	};
+
+
+	var
+			m = /(MSIE) ([\w.]+)/.exec(navigator.userAgent),
+			patch = m && m[1] && m[2] < 9;
+
+	if (patch) {
+		$.fn.fadeIn = function(speed, callback) {
+			return this.animate({
+				opacity: 'show'
+			}, speed, function() {
+				this.style.removeAttribute('filter');
+				callback && callback();
+			});
+		};
+
+		$.fn.fadeOut = function(speed, callback) {
+			return this.animate({
+				opacity: 'hide'
+			}, speed, function() {
+				this.style.removeAttribute('filter');
+				callback && callback();
+			});
+		};
+
+		$.fn.fadeTo = function(speed, to, callback) {
+			return this.animate({
+				opacity: to
+			}, speed, function() {
+				to === 1 && this.style.removeAttribute('filter');
+				callback && callback();
+			});
+		};
+	}
+
+
+}((typeof WP !== "undefined" && WP.$) ? WP.$ : $));/*jslint browser: true*/
+/*global WP, $ */
+
+(function($) {
+
+	$.fn.charCounter = function(pars) {
+
+		$.extend(this, pars);
+
+		var
+				$this = this.attr("autocomplete", "off"),
+				maxChars = parseInt(this.attr("maxchars"), 10),
+				noPrint = [0, 8, 9, 17, 33, 34, 35, 36, 37, 38, 39, 40, 45, 46, 116],
+				counter = this.counter || $("<span>").addClass("charCounter").insertAfter(this),
+				onChange = function(e) {
+			if ($this.val().length >= maxChars && noPrint.indexOf(e.which) === -1) {
+				$this.val($.trim($this.val()).substring(0, maxChars));
+			}
+			counter.text(maxChars - $this.val().length);
+		},
+				onDown = function(e) {
+			if ($this.val().length === maxChars) {
+				if (noPrint.indexOf(e.which) === -1 && !e.ctrlKey) {
+					e.preventDefault();
+				}
+				counter.text(maxChars - $this.val().length);
+			} else {
+				onChange(e);
+			}
+		};
+
+		if (maxChars) {
+			this.keyup(onDown).keypress(onDown).change(onChange).keyup();
+		}
+
+		return this;
+	};
+
+}((typeof WP !== "undefined" && WP.$) ? WP.$ : $));/*jslint browser: true*/
+/*global window, WP, $*/
+
+(function($) {
+
+	$.fn.fileInputSkinning = function(noPreview) {
+
+		return this.each(function() {
+
+			var
+					$this = $(this).css({
+				opacity: 0,
+				cursor: "pointer",
+				position: "absolute",
+				width: "auto"
+			}),
+			holder = $('<span>').addClass($this.attr("class")).css({
+				position: "relative",
+				display: "inline-block"
+			}).insertAfter($this),
+					holderMask = $('<span>').css({
+				top: 0,
+				left: 0,
+				width: "100%",
+				height: "100%",
+				position: "absolute",
+				overflow: "hidden",
+				display: "block"
+			}).appendTo(holder).append($this),
+					fakeName = $('<span>').addClass("fakeName").text($this.attr("placeholder")).appendTo(holder),
+					onChange = function() {
+				if (!noPreview) {
+					fakeName.text($this.val() || $this.attr("placeholder"));
+				}
+			},
+					onChangeIE = function() {
+				setTimeout(onChange, 0);
+			},
+					offset,
+					onOver = function() {
+				offset = holder.offset();
+				$this.css({
+					marginLeft: -$this.width() + 40,
+					marginTop: -$this.height() / 2
+				});
+			},
+					onMove = function(e) {
+				if (offset) {
+					$this.css({
+						left: e.pageX - (offset.left || 0),
+						top: e.pageY - (offset.top || 0)
+					});
+				}
+			};
+
+			holder.mousemove(onMove).mouseover(onOver);
+
+			if ($.browser.msie) {
+				$this.click(onChangeIE);
+			} else {
+				$this.change(onChange);
+			}
+		});
+	};
+}((typeof WP !== "undefined" && WP.$) ? WP.$ : $));/**
+ * jquery.Jcrop.min.js v0.9.12 (build:20130202)
+ * jQuery Image Cropping Plugin - released under MIT License
+ * Copyright (c) 2008-2013 Tapmodo Interactive LLC
+ * https://github.com/tapmodo/Jcrop
+ */
+(function(a) {
+	a.Jcrop = function(b, c) {
+		function i(a) {
+			return Math.round(a) + "px"
+		}
+		function j(a) {
+			return d.baseClass + "-" + a
+		}
+		function k() {
+			return a.fx.step.hasOwnProperty("backgroundColor")
+		}
+		function l(b) {
+			var c = a(b).offset();
+			return[c.left, c.top]
+		}
+		function m(a) {
+			return[a.pageX - e[0], a.pageY - e[1]]
+		}
+		function n(b) {
+			typeof b != "object" && (b = {}), d = a.extend(d, b), a.each(["onChange", "onSelect", "onRelease", "onDblClick"], function(a, b) {
+				typeof d[b] != "function" && (d[b] = function() {
+				})
+			})
+		}
+		function o(a, b, c) {
+			e = l(D), bc.setCursor(a === "move" ? a : a + "-resize");
+			if (a === "move")
+				return bc.activateHandlers(q(b), v, c);
+			var d = _.getFixed(), f = r(a), g = _.getCorner(r(f));
+			_.setPressed(_.getCorner(f)), _.setCurrent(g), bc.activateHandlers(p(a, d), v, c)
+		}
+		function p(a, b) {
+			return function(c) {
+				if (!d.aspectRatio)
+					switch (a) {
+						case"e":
+							c[1] = b.y2;
+							break;
+						case"w":
+							c[1] = b.y2;
+							break;
+						case"n":
+							c[0] = b.x2;
+							break;
+						case"s":
+							c[0] = b.x2
+					}
+				else
+					switch (a) {
+						case"e":
+							c[1] = b.y + 1;
+							break;
+						case"w":
+							c[1] = b.y + 1;
+							break;
+						case"n":
+							c[0] = b.x + 1;
+							break;
+						case"s":
+							c[0] = b.x + 1
+					}
+				_.setCurrent(c), bb.update()
+			}
+		}
+		function q(a) {
+			var b = a;
+			return bd.watchKeys
+					(), function(a) {
+				_.moveOffset([a[0] - b[0], a[1] - b[1]]), b = a, bb.update()
+			}
+		}
+		function r(a) {
+			switch (a) {
+				case"n":
+					return"sw";
+				case"s":
+					return"nw";
+				case"e":
+					return"nw";
+				case"w":
+					return"ne";
+				case"ne":
+					return"sw";
+				case"nw":
+					return"se";
+				case"se":
+					return"nw";
+				case"sw":
+					return"ne"
+			}
+		}
+		function s(a) {
+			return function(b) {
+				return d.disabled ? !1 : a === "move" && !d.allowMove ? !1 : (e = l(D), W = !0, o(a, m(b)), b.stopPropagation(), b.preventDefault(), !1)
+			}
+		}
+		function t(a, b, c) {
+			var d = a.width(), e = a.height();
+			d > b && b > 0 && (d = b, e = b / a.width() * a.height()), e > c && c > 0 && (e = c, d = c / a.height() * a.width()), T = a.width() / d, U = a.height() / e, a.width(d).height(e)
+		}
+		function u(a) {
+			return{x: a.x * T, y: a.y * U, x2: a.x2 * T, y2: a.y2 * U, w: a.w * T, h: a.h * U}
+		}
+		function v(a) {
+			var b = _.getFixed();
+			b.w > d.minSelect[0] && b.h > d.minSelect[1] ? (bb.enableHandles(), bb.done()) : bb.release(), bc.setCursor(d.allowSelect ? "crosshair" : "default")
+		}
+		function w(a) {
+			if (d.disabled)
+				return!1;
+			if (!d.allowSelect)
+				return!1;
+			W = !0, e = l(D), bb.disableHandles(), bc.setCursor("crosshair");
+			var b = m(a);
+			return _.setPressed(b), bb.update(), bc.activateHandlers(x, v, a.type.substring
+					(0, 5) === "touch"), bd.watchKeys(), a.stopPropagation(), a.preventDefault(), !1
+		}
+		function x(a) {
+			_.setCurrent(a), bb.update()
+		}
+		function y() {
+			var b = a("<div></div>").addClass(j("tracker"));
+			return g && b.css({opacity: 0, backgroundColor: "white"}), b
+		}
+		function be(a) {
+			G.removeClass().addClass(j("holder")).addClass(a)
+		}
+		function bf(a, b) {
+			function t() {
+				window.setTimeout(u, l)
+			}
+			var c = a[0] / T, e = a[1] / U, f = a[2] / T, g = a[3] / U;
+			if (X)
+				return;
+			var h = _.flipCoords(c, e, f, g), i = _.getFixed(), j = [i.x, i.y, i.x2, i.y2], k = j, l = d.animationDelay, m = h[0] - j[0], n = h[1] - j[1], o = h[2] - j[2], p = h[3] - j[3], q = 0, r = d.swingSpeed;
+			c = k[0], e = k[1], f = k[2], g = k[3], bb.animMode(!0);
+			var s, u = function() {
+				return function() {
+					q += (100 - q) / r, k[0] = Math.round(c + q / 100 * m), k[1] = Math.round(e + q / 100 * n), k[2] = Math.round(f + q / 100 * o), k[3] = Math.round(g + q / 100 * p), q >= 99.8 && (q = 100), q < 100 ? (bh(k), t()) : (bb.done(), bb.animMode(!1), typeof b == "function" && b.call(bs))
+				}
+			}();
+			t()
+		}
+		function bg(a) {
+			bh([a[0] / T, a[1] / U, a[2] / T, a[3] / U]), d.onSelect.call(bs, u(_.getFixed())), bb.enableHandles()
+		}
+		function bh(a) {
+			_.setPressed([a[0], a[1]]), _.setCurrent([a[2],
+				a[3]]), bb.update()
+		}
+		function bi() {
+			return u(_.getFixed())
+		}
+		function bj() {
+			return _.getFixed()
+		}
+		function bk(a) {
+			n(a), br()
+		}
+		function bl() {
+			d.disabled = !0, bb.disableHandles(), bb.setCursor("default"), bc.setCursor("default")
+		}
+		function bm() {
+			d.disabled = !1, br()
+		}
+		function bn() {
+			bb.done(), bc.activateHandlers(null, null)
+		}
+		function bo() {
+			G.remove(), A.show(), A.css("visibility", "visible"), a(b).removeData("Jcrop")
+		}
+		function bp(a, b) {
+			bb.release(), bl();
+			var c = new Image;
+			c.onload = function() {
+				var e = c.width, f = c.height, g = d.boxWidth, h = d.boxHeight;
+				D.width(e).height(f), D.attr("src", a), H.attr("src", a), t(D, g, h), E = D.width(), F = D.height(), H.width(E).height(F), M.width(E + L * 2).height(F + L * 2), G.width(E).height(F), ba.resize(E, F), bm(), typeof b == "function" && b.call(bs)
+			}, c.src = a
+		}
+		function bq(a, b, c) {
+			var e = b || d.bgColor;
+			d.bgFade && k() && d.fadeTime && !c ? a.animate({backgroundColor: e}, {queue: !1, duration: d.fadeTime}) : a.css("backgroundColor", e)
+		}
+		function br(a) {
+			d.allowResize ? a ? bb.enableOnly() : bb.enableHandles() : bb.disableHandles(), bc.setCursor(d.allowSelect ? "crosshair" : "default"), bb
+					.setCursor(d.allowMove ? "move" : "default"), d.hasOwnProperty("trueSize") && (T = d.trueSize[0] / E, U = d.trueSize[1] / F), d.hasOwnProperty("setSelect") && (bg(d.setSelect), bb.done(), delete d.setSelect), ba.refresh(), d.bgColor != N && (bq(d.shade ? ba.getShades() : G, d.shade ? d.shadeColor || d.bgColor : d.bgColor), N = d.bgColor), O != d.bgOpacity && (O = d.bgOpacity, d.shade ? ba.refresh() : bb.setBgOpacity(O)), P = d.maxSize[0] || 0, Q = d.maxSize[1] || 0, R = d.minSize[0] || 0, S = d.minSize[1] || 0, d.hasOwnProperty("outerImage") && (D.attr("src", d.outerImage), delete d.outerImage), bb.refresh()
+		}
+		var d = a.extend({}, a.Jcrop.defaults), e, f = navigator.userAgent.toLowerCase(), g = /msie/.test(f), h = /msie [1-6]\./.test(f);
+		typeof b != "object" && (b = a(b)[0]), typeof c != "object" && (c = {}), n(c);
+		var z = {border: "none", visibility: "visible", margin: 0, padding: 0, position: "absolute", top: 0, left: 0}, A = a(b), B = !0;
+		if (b.tagName == "IMG") {
+			if (A[0].width != 0 && A[0].height != 0)
+				A.width(A[0].width), A.height(A[0].height);
+			else {
+				var C = new Image;
+				C.src = A[0].src, A.width(C.width), A.height(C.height)
+			}
+			var D = A.clone().removeAttr("id").
+					css(z).show();
+			D.width(A.width()), D.height(A.height()), A.after(D).hide()
+		} else
+			D = A.css(z).show(), B = !1, d.shade === null && (d.shade = !0);
+		t(D, d.boxWidth, d.boxHeight);
+		var E = D.width(), F = D.height(), G = a("<div />").width(E).height(F).addClass(j("holder")).css({position: "relative", backgroundColor: d.bgColor}).insertAfter(A).append(D);
+		d.addClass && G.addClass(d.addClass);
+		var H = a("<div />"), I = a("<div />").width("100%").height("100%").css({zIndex: 310, position: "absolute", overflow: "hidden"}), J = a("<div />").width("100%").height("100%").css("zIndex", 320), K = a("<div />").css({position: "absolute", zIndex: 600}).dblclick(function() {
+			var a = _.getFixed();
+			d.onDblClick.call(bs, a)
+		}).insertBefore(D).append(I, J);
+		B && (H = a("<img />").attr("src", D.attr("src")).css(z).width(E).height(F), I.append(H)), h && K.css({overflowY: "hidden"});
+		var L = d.boundary, M = y().width(E + L * 2).height(F + L * 2).css({position: "absolute", top: i(-L), left: i(-L), zIndex: 290}).mousedown(w), N = d.bgColor, O = d.bgOpacity, P, Q, R, S, T, U, V = !0, W, X, Y;
+		e = l(D);
+		var Z = function() {
+			function a() {
+				var a = {}, b = ["touchstart"
+							, "touchmove", "touchend"], c = document.createElement("div"), d;
+				try {
+					for (d = 0; d < b.length; d++) {
+						var e = b[d];
+						e = "on" + e;
+						var f = e in c;
+						f || (c.setAttribute(e, "return;"), f = typeof c[e] == "function"), a[b[d]] = f
+					}
+					return a.touchstart && a.touchend && a.touchmove
+				} catch (g) {
+					return!1
+				}
+			}
+			function b() {
+				return d.touchSupport === !0 || d.touchSupport === !1 ? d.touchSupport : a()
+			}
+			return{createDragger: function(a) {
+					return function(b) {
+						return d.disabled ? !1 : a === "move" && !d.allowMove ? !1 : (e = l(D), W = !0, o(a, m(Z.cfilter(b)), !0), b.stopPropagation(), b.preventDefault(), !1)
+					}
+				}, newSelection: function(a) {
+					return w(Z.cfilter(a))
+				}, cfilter: function(a) {
+					return a.pageX = a.originalEvent.changedTouches[0].pageX, a.pageY = a.originalEvent.changedTouches[0].pageY, a
+				}, isSupported: a, support: b()}
+		}(), _ = function() {
+			function h(d) {
+				d = n(d), c = a = d[0], e = b = d[1]
+			}
+			function i(a) {
+				a = n(a), f = a[0] - c, g = a[1] - e, c = a[0], e = a[1]
+			}
+			function j() {
+				return[f, g]
+			}
+			function k(d) {
+				var f = d[0], g = d[1];
+				0 > a + f && (f -= f + a), 0 > b + g && (g -= g + b), F < e + g && (g += F - (e + g)), E < c + f && (f += E - (c + f)), a += f, c += f, b += g, e += g
+			}
+			function l(a) {
+				var b = m();
+				switch (a) {
+					case"ne":
+						return[
+							b.x2, b.y];
+					case"nw":
+						return[b.x, b.y];
+					case"se":
+						return[b.x2, b.y2];
+					case"sw":
+						return[b.x, b.y2]
+				}
+			}
+			function m() {
+				if (!d.aspectRatio)
+					return p();
+				var f = d.aspectRatio, g = d.minSize[0] / T, h = d.maxSize[0] / T, i = d.maxSize[1] / U, j = c - a, k = e - b, l = Math.abs(j), m = Math.abs(k), n = l / m, r, s, t, u;
+				return h === 0 && (h = E * 10), i === 0 && (i = F * 10), n < f ? (s = e, t = m * f, r = j < 0 ? a - t : t + a, r < 0 ? (r = 0, u = Math.abs((r - a) / f), s = k < 0 ? b - u : u + b) : r > E && (r = E, u = Math.abs((r - a) / f), s = k < 0 ? b - u : u + b)) : (r = c, u = l / f, s = k < 0 ? b - u : b + u, s < 0 ? (s = 0, t = Math.abs((s - b) * f), r = j < 0 ? a - t : t + a) : s > F && (s = F, t = Math.abs(s - b) * f, r = j < 0 ? a - t : t + a)), r > a ? (r - a < g ? r = a + g : r - a > h && (r = a + h), s > b ? s = b + (r - a) / f : s = b - (r - a) / f) : r < a && (a - r < g ? r = a - g : a - r > h && (r = a - h), s > b ? s = b + (a - r) / f : s = b - (a - r) / f), r < 0 ? (a -= r, r = 0) : r > E && (a -= r - E, r = E), s < 0 ? (b -= s, s = 0) : s > F && (b -= s - F, s = F), q(o(a, b, r, s))
+			}
+			function n(a) {
+				return a[0] < 0 && (a[0] = 0), a[1] < 0 && (a[1] = 0), a[0] > E && (a[0] = E), a[1] > F && (a[1] = F), [Math.round(a[0]), Math.round(a[1])]
+			}
+			function o(a, b, c, d) {
+				var e = a, f = c, g = b, h = d;
+				return c < a && (e = c, f = a), d < b && (g = d, h = b), [e, g, f, h]
+			}
+			function p() {
+				var d = c - a, f = e - b, g;
+				return P && Math.abs(d) > P && (c = d > 0 ? a + P : a - P), Q && Math.abs
+						(f) > Q && (e = f > 0 ? b + Q : b - Q), S / U && Math.abs(f) < S / U && (e = f > 0 ? b + S / U : b - S / U), R / T && Math.abs(d) < R / T && (c = d > 0 ? a + R / T : a - R / T), a < 0 && (c -= a, a -= a), b < 0 && (e -= b, b -= b), c < 0 && (a -= c, c -= c), e < 0 && (b -= e, e -= e), c > E && (g = c - E, a -= g, c -= g), e > F && (g = e - F, b -= g, e -= g), a > E && (g = a - F, e -= g, b -= g), b > F && (g = b - F, e -= g, b -= g), q(o(a, b, c, e))
+			}
+			function q(a) {
+				return{x: a[0], y: a[1], x2: a[2], y2: a[3], w: a[2] - a[0], h: a[3] - a[1]}
+			}
+			var a = 0, b = 0, c = 0, e = 0, f, g;
+			return{flipCoords: o, setPressed: h, setCurrent: i, getOffset: j, moveOffset: k, getCorner: l, getFixed: m}
+		}(), ba = function() {
+			function f(a, b) {
+				e.left.css({height: i(b)}), e.right.css({height: i(b)})
+			}
+			function g() {
+				return h(_.getFixed())
+			}
+			function h(a) {
+				e.top.css({left: i(a.x), width: i(a.w), height: i(a.y)}), e.bottom.css({top: i(a.y2), left: i(a.x), width: i(a.w), height: i(F - a.y2)}), e.right.css({left: i(a.x2), width: i(E - a.x2)}), e.left.css({width: i(a.x)})
+			}
+			function j() {
+				return a("<div />").css({position: "absolute", backgroundColor: d.shadeColor || d.bgColor}).appendTo(c)
+			}
+			function k() {
+				b || (b = !0, c.insertBefore(D), g(), bb.setBgOpacity(1, 0, 1), H.hide(), l(d.shadeColor || d.bgColor, 1), bb.
+						isAwake() ? n(d.bgOpacity, 1) : n(1, 1))
+			}
+			function l(a, b) {
+				bq(p(), a, b)
+			}
+			function m() {
+				b && (c.remove(), H.show(), b = !1, bb.isAwake() ? bb.setBgOpacity(d.bgOpacity, 1, 1) : (bb.setBgOpacity(1, 1, 1), bb.disableHandles()), bq(G, 0, 1))
+			}
+			function n(a, e) {
+				b && (d.bgFade && !e ? c.animate({opacity: 1 - a}, {queue: !1, duration: d.fadeTime}) : c.css({opacity: 1 - a}))
+			}
+			function o() {
+				d.shade ? k() : m(), bb.isAwake() && n(d.bgOpacity)
+			}
+			function p() {
+				return c.children()
+			}
+			var b = !1, c = a("<div />").css({position: "absolute", zIndex: 240, opacity: 0}), e = {top: j(), left: j().height(F), right: j().height(F), bottom: j()};
+			return{update: g, updateRaw: h, getShades: p, setBgColor: l, enable: k, disable: m, resize: f, refresh: o, opacity: n}
+		}(), bb = function() {
+			function k(b) {
+				var c = a("<div />").css({position: "absolute", opacity: d.borderOpacity}).addClass(j(b));
+				return I.append(c), c
+			}
+			function l(b, c) {
+				var d = a("<div />").mousedown(s(b)).css({cursor: b + "-resize", position: "absolute", zIndex: c}).addClass("ord-" + b);
+				return Z.support && d.bind("touchstart.jcrop", Z.createDragger(b)), J.append(d), d
+			}
+			function m(a) {
+				var b = d.handleSize, e = l(a, c++
+						).css({opacity: d.handleOpacity}).addClass(j("handle"));
+				return b && e.width(b).height(b), e
+			}
+			function n(a) {
+				return l(a, c++).addClass("jcrop-dragbar")
+			}
+			function o(a) {
+				var b;
+				for (b = 0; b < a.length; b++)
+					g[a[b]] = n(a[b])
+			}
+			function p(a) {
+				var b, c;
+				for (c = 0; c < a.length; c++) {
+					switch (a[c]) {
+						case"n":
+							b = "hline";
+							break;
+						case"s":
+							b = "hline bottom";
+							break;
+						case"e":
+							b = "vline right";
+							break;
+						case"w":
+							b = "vline"
+					}
+					e[a[c]] = k(b)
+				}
+			}
+			function q(a) {
+				var b;
+				for (b = 0; b < a.length; b++)
+					f[a[b]] = m(a[b])
+			}
+			function r(a, b) {
+				d.shade || H.css({top: i(-b), left: i(-a)}), K.css({top: i(b), left: i(a)})
+			}
+			function t(a, b) {
+				K.width(Math.round(a)).height(Math.round(b))
+			}
+			function v() {
+				var a = _.getFixed();
+				_.setPressed([a.x, a.y]), _.setCurrent([a.x2, a.y2]), w()
+			}
+			function w(a) {
+				if (b)
+					return x(a)
+			}
+			function x(a) {
+				var c = _.getFixed();
+				t(c.w, c.h), r(c.x, c.y), d.shade && ba.updateRaw(c), b || A(), a ? d.onSelect.call(bs, u(c)) : d.onChange.call(bs, u(c))
+			}
+			function z(a, c, e) {
+				if (!b && !c)
+					return;
+				d.bgFade && !e ? D.animate({opacity: a}, {queue: !1, duration: d.fadeTime}) : D.css("opacity", a)
+			}
+			function A() {
+				K.show(), d.shade ? ba.opacity(O) : z(O, !0), b = !0
+			}
+			function B
+					() {
+				F(), K.hide(), d.shade ? ba.opacity(1) : z(1), b = !1, d.onRelease.call(bs)
+			}
+			function C() {
+				h && J.show()
+			}
+			function E() {
+				h = !0;
+				if (d.allowResize)
+					return J.show(), !0
+			}
+			function F() {
+				h = !1, J.hide()
+			}
+			function G(a) {
+				a ? (X = !0, F()) : (X = !1, E())
+			}
+			function L() {
+				G(!1), v()
+			}
+			var b, c = 370, e = {}, f = {}, g = {}, h = !1;
+			d.dragEdges && a.isArray(d.createDragbars) && o(d.createDragbars), a.isArray(d.createHandles) && q(d.createHandles), d.drawBorders && a.isArray(d.createBorders) && p(d.createBorders), a(document).bind("touchstart.jcrop-ios", function(b) {
+				a(b.currentTarget).hasClass("jcrop-tracker") && b.stopPropagation()
+			});
+			var M = y().mousedown(s("move")).css({cursor: "move", position: "absolute", zIndex: 360});
+			return Z.support && M.bind("touchstart.jcrop", Z.createDragger("move")), I.append(M), F(), {updateVisible: w, update: x, release: B, refresh: v, isAwake: function() {
+					return b
+				}, setCursor: function(a) {
+					M.css("cursor", a)
+				}, enableHandles: E, enableOnly: function() {
+					h = !0
+				}, showHandles: C, disableHandles: F, animMode: G, setBgOpacity: z, done: L}
+		}(), bc = function() {
+			function f(b) {
+				M.css({zIndex: 450}), b ? a(document).bind("touchmove.jcrop"
+						, k).bind("touchend.jcrop", l) : e && a(document).bind("mousemove.jcrop", h).bind("mouseup.jcrop", i)
+			}
+			function g() {
+				M.css({zIndex: 290}), a(document).unbind(".jcrop")
+			}
+			function h(a) {
+				return b(m(a)), !1
+			}
+			function i(a) {
+				return a.preventDefault(), a.stopPropagation(), W && (W = !1, c(m(a)), bb.isAwake() && d.onSelect.call(bs, u(_.getFixed())), g(), b = function() {
+				}, c = function() {
+				}), !1
+			}
+			function j(a, d, e) {
+				return W = !0, b = a, c = d, f(e), !1
+			}
+			function k(a) {
+				return b(m(Z.cfilter(a))), !1
+			}
+			function l(a) {
+				return i(Z.cfilter(a))
+			}
+			function n(a) {
+				M.css("cursor", a)
+			}
+			var b = function() {
+			}, c = function() {
+			}, e = d.trackDocument;
+			return e || M.mousemove(h).mouseup(i).mouseout(i), D.before(M), {activateHandlers: j, setCursor: n}
+		}(), bd = function() {
+			function e() {
+				d.keySupport && (b.show(), b.focus())
+			}
+			function f(a) {
+				b.hide()
+			}
+			function g(a, b, c) {
+				d.allowMove && (_.moveOffset([b, c]), bb.updateVisible(!0)), a.preventDefault(), a.stopPropagation()
+			}
+			function i(a) {
+				if (a.ctrlKey || a.metaKey)
+					return!0;
+				Y = a.shiftKey ? !0 : !1;
+				var b = Y ? 10 : 1;
+				switch (a.keyCode) {
+					case 37:
+						g(a, -b, 0);
+						break;
+					case 39:
+						g(a, b, 0);
+						break;
+					case 38:
+						g(a, 0, -b);
+						break;
+					case 40:
+						g(a, 0, b);
+						break;
+					case 27:
+						d.allowSelect && bb.release();
+						break;
+					case 9:
+						return!0
+				}
+				return!1
+			}
+			var b = a('<input type="radio" />').css({position: "fixed", left: "-120px", width: "12px"}).addClass("jcrop-keymgr"), c = a("<div />").css({position: "absolute", overflow: "hidden"}).append(b);
+			return d.keySupport && (b.keydown(i).blur(f), h || !d.fixedSupport ? (b.css({position: "absolute", left: "-20px"}), c.append(b).insertBefore(D)) : b.insertBefore(D)), {watchKeys: e}
+		}();
+		Z.support && M.bind("touchstart.jcrop", Z.newSelection), J.hide(), br(!0);
+		var bs = {setImage: bp, animateTo: bf, setSelect: bg, setOptions: bk, tellSelect: bi, tellScaled: bj, setClass: be, disable: bl, enable: bm, cancel: bn, release: bb.release, destroy: bo, focus: bd.watchKeys, getBounds: function() {
+				return[E * T, F * U]
+			}, getWidgetSize: function() {
+				return[E, F]
+			}, getScaleFactor: function() {
+				return[T, U]
+			}, getOptions: function() {
+				return d
+			}, ui: {holder: G, selection: K}};
+		return g && G.bind("selectstart", function() {
+			return!1
+		}), A.data("Jcrop", bs), bs
+	}, a.fn.Jcrop = function(b, c) {
+		var d;
+		return this.each(function() {
+			if (a(this).data("Jcrop")) {
+				if (
+						b === "api")
+					return a(this).data("Jcrop");
+				a(this).data("Jcrop").setOptions(b)
+			} else
+				this.tagName == "IMG" ? a.Jcrop.Loader(this, function() {
+					a(this).css({display: "block", visibility: "hidden"}), d = a.Jcrop(this, b), a.isFunction(c) && c.call(d)
+				}) : (a(this).css({display: "block", visibility: "hidden"}), d = a.Jcrop(this, b), a.isFunction(c) && c.call(d))
+		}), this
+	}, a.Jcrop.Loader = function(b, c, d) {
+		function g() {
+			f.complete ? (e.unbind(".jcloader"), a.isFunction(c) && c.call(f)) : window.setTimeout(g, 50)
+		}
+		var e = a(b), f = e[0];
+		e.bind("load.jcloader", g).bind("error.jcloader", function(b) {
+			e.unbind(".jcloader"), a.isFunction(d) && d.call(f)
+		}), f.complete && a.isFunction(c) && (e.unbind(".jcloader"), c.call(f))
+	}, a.Jcrop.defaults = {allowSelect: !0, allowMove: !0, allowResize: !0, trackDocument: !0, baseClass: "jcrop", addClass: null, bgColor: "black", bgOpacity: .6, bgFade: !1, borderOpacity: .4, handleOpacity: .5, handleSize: null, aspectRatio: 0, keySupport: !0, createHandles: ["n", "s", "e", "w", "nw", "ne", "se", "sw"], createDragbars: ["n", "s", "e", "w"], createBorders: ["n", "s", "e", "w"], drawBorders: !0, dragEdges
+				: !0, fixedSupport: !0, touchSupport: null, shade: null, boxWidth: 0, boxHeight: 0, boundary: 2, fadeTime: 400, animationDelay: 20, swingSpeed: 3, minSelect: [0, 0], maxSize: [0, 0], minSize: [0, 0], onChange: function() {
+		}, onSelect: function() {
+		}, onDblClick: function() {
+		}, onRelease: function() {
+		}}
+})(jQuery);/*
+ *  WP.PL
+ *  Drag&Drop File Uploade jQuery plugin v2.0 DEW
+ *  2012 Lukasz Rosa
+
+ //  String dropAreaSelector;
+
+ //  onUploadStart( Array.<UploadItem> ); !!!
+ //  onUploadComplete( Array.<UploadItem> ); !!!
+ //  onUploadAborted( Array.<UploadItem> ); !!!
+
+ //  onBeforeFileUploadStart( UploadItem, DnD );
+ //  onFileUploadError( UploadItem, DnD );
+ //  onFileUploadStart( UploadItem, DnD );
+ //  onFileUploadProgress( UploadItem, DnD );
+ //  onFileUploadComplete( UploadItem, DnD );
+ //  onFileUploadAborted( UploadItem, DnD );
+
+ //  onReadStart( Array.<UploadItem> ); !!!
+ //  onReadComplete( Array.<UploadItem> ); !!!
+
+ //  onFileReadError ( UploadItem, DnD );
+ //  onFileReadStart ( UploadItem, DnD );
+ //  onFileReadComplete( UploadItem, DnD );
+
+ */
+
+(function($) {
+
+	$.fn.extend({
+		DNDUpload: function(options)
+		{
+			var UploadItem = function()
+			{
+				this.postData = "";
+				this.formData = null;
+
+				this.readerStatus = false;
+				this.uploadStatus = false;
+
+				this.file = null;
+				this.fileReader = null;
+
+				this.xhr = null;
+				this.aborted = false;
+
+				this.progress = null;
+				this.uploadSpeed = 0;
+				this.uploadTimeStart = 0;
+				this.uploadTimeComplete = 0;
+
+				this.error = 0;
+				this.errorText = "";
+
+				this.errors = [
+					"OK",
+					"Nieobs\u0142ugiwany typ pliku: ",
+					"Przegl\u0105darka nie mog\u0142a odczyta\u0107 pliku: ", // (FileReader)
+					"Serwer odrzuci\u0142 plik: " // (XMLHttpRequest)
+				];
+
+				this.setError = function(er)
+				{
+					this.error = er;
+					this.errorText = this.errors[er];
+				}
+			};
+
+			var boundary = '------multipartformboundary' + $.now();
+			var dashdash = '--';
+			var crlf = '\r\n';
+
+			var DnD = this;
+
+			this.DnDready = true;
+
+			if (typeof window.FileReader === 'undefined')
+				this.DnDready = false; // brak File API
+
+			if (!('draggable' in document.createElement('span')))
+				this.DnDready = false; // brak Drag&Drop API
+
+			if ($.browser.msie)
+				this.DnDready = false; // IE!
+
+
+			var methods =
+					{
+						// OK
+						_fileUploadComplete: function(e)
+						{
+							DnD.currItem.uploadTimeComplete = $.now();
+							DnD.currItem.uploadStatus = true;
+
+							DnD.loaded += DnD.currItem.file.size;
+
+							if (DnD.onFileUploadComplete)
+								DnD.onFileUploadComplete(DnD.currItem, DnD);
+
+							DnD.fileUploadStart();
+						},
+						// OK
+						fileUploadStart: function()
+						{
+							if (!this.aborted)
+							{
+
+
+								var currIndex = this.getNextUpload();
+								if (currIndex < this.uploadQueue.length)
+								{
+									this.currItem = this.uploadQueue[currIndex];
+
+									if (this.onBeforeFileUploadStart)
+										this.onBeforeFileUploadStart(this.currItem, this);
+
+									if (!this.currItem.aborted)
+									{
+										if (this.currItem.postData != "")
+										{
+											var xhr = this.currItem.xhr;
+											//xhr.withCredentials = "true";
+
+											xhr.open("POST", this.uploadScript, true);
+											xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + boundary);
+
+											xhr.onload = this._fileUploadComplete;
+											xhr.onerror = this._fileUploadError;
+											xhr.onabort = this._fileUploadAbort;
+											xhr.onreadystatechange = this._fileUploadStateChange;
+
+											if (!this.progressDisabled /* && $.browser.webkit*/)
+											{
+												xhr.upload.onprogress = this._fileUploadProgress;
+												xhr.upload.onloadstart = this._fileUploadLoadStart;
+
+												//xhr.onprogress = this._fileUploadProgress;
+												//xhr.onloadstart = this._fileUploadLoadStart;
+											}
+
+											xhr.sendAsBinary(this.currItem.postData);
+
+											this._fileUploadLoadStart();
+										}
+									}
+									else
+									{
+										this.currItem.uploadStatus = true;
+										this.fileUploadStart();
+									}
+								}
+								else
+								{
+									if (this.onUploadComplete)
+										this.onUploadComplete(this.currItem, this);
+								}
+							}
+							else
+							{
+								if (this.onUploadAborted)
+									this.onUploadAborted(this.currItem, this);
+							}
+						},
+						_fileUploadStateChange: function(e)
+						{
+							var xhr = DnD.currItem.xhr;
+
+							if (xhr.readyState === 4) {
+								if (xhr.status !== 200) {
+									DnD._fileUploadAbort(e)
+								}
+							}
+						},
+						// OK
+						_fileUploadAbort: function()
+						{
+							if (DnD.onFileUploadAborted)
+								DnD.onFileUploadAborted(DnD.currItem, DnD);
+						},
+						// OK
+						_fileUploadLoadStart: function(e)
+						{
+							if (!DnD.uploadTimeStart)
+								DnD.uploadTimeStart = $.now();
+
+							DnD.currItem.uploadTimeStart = $.now();
+
+							if (DnD.onFileUploadStart)
+								DnD.onFileUploadStart(DnD.currItem, DnD);
+						},
+						// OK
+						_fileUploadError: function(e)
+						{
+							DnD.currItem.setError(3);
+							DnD.currItem.errorEvent = e;
+
+							if (DnD.onFileUploadError)
+								DnD.onFileUploadError(DnD.currItem, DnD);
+
+							DnD.currItem.uploadTimeComplete = $.now();
+							DnD.currItem.uploadStatus = true;
+
+							DnD.loaded += DnD.currItem.file.size;
+
+							DnD.fileUploadStart();
+						},
+						// OK
+						uploadStart: function()
+						{
+							if (this.onUploadStart)
+								this.onUploadStart(this.currItem, this);
+
+							this.fileUploadStart();
+						},
+						// TODO ???
+						_fileUploadProgress: function(e)
+						{
+							if (e.lengthComputable)
+							{
+								var nowTime = $.now();
+								var time = nowTime - DnD.currItem.uploadTimeStart;
+
+								DnD.currItem.uploadSpeed = e.loaded / time * 1000 / 1024;
+								DnD.currItem.progress = e.loaded / e.total;
+								DnD.currItem.uploadTimeRemaing = (time / DnD.currItem.progress - time) / 1000;
+
+								var timeTotal = nowTime - DnD.uploadTimeStart;
+								var loadedTotal = DnD.loaded + e.loaded;
+
+								DnD.uploadSpeed = loadedTotal / timeTotal * 1000 / 1024;
+								DnD.progress = loadedTotal / DnD.total;
+								DnD.uploadTimeRemaing = (timeTotal / DnD.progress - timeTotal) / 1000;
+							}
+
+							if (DnD.onFileUploadProgress)
+								DnD.onFileUploadProgress(DnD.currItem, DnD);
+						},
+						// OK
+						getNextRead: function()
+						{
+							for (var i = 0; i < this.uploadQueue.length; i++)
+								if (this.uploadQueue[i].readerStatus != true)
+									return i;
+
+							return this.uploadQueue.length;
+						},
+						// OK
+						getNextUpload: function()
+						{
+							for (var i = 0; i < this.uploadQueue.length; i++)
+								if (this.uploadQueue[i].uploadStatus != true)
+									return i;
+
+							return this.uploadQueue.length;
+						},
+						// OK
+						fileBuildStart: function()
+						{
+							// Build RFC2388 string.
+							var currData = currData = '';
+							currData += dashdash;
+							currData += boundary;
+							currData += crlf;
+
+							if (DnD.currItem.formData)
+							{
+								for (var par in DnD.currItem.formData)
+								{
+									currData += 'Content-Disposition: form-data; name="' + par + '"';
+									currData += crlf;
+									currData += crlf;
+
+									currData += DnD.currItem.formData[par];
+									currData += crlf;
+
+									currData += dashdash;
+									currData += boundary;
+									currData += crlf;
+								}
+							}
+
+							// Generate headers.
+							currData += 'Content-Disposition: form-data; name="' + DnD.fieldName + '"';
+
+							if (DnD.currReader.fileName) {
+								currData += '; filename="' + DnD.prepareNonASCII(DnD.currReader.fileName) + '"';
+							}
+
+							currData += crlf;
+							currData += 'Content-Type: ' + DnD.currItem.file.type;
+							currData += crlf;
+							currData += crlf;
+
+							// Append binary data.
+							currData += DnD.currReader.result;
+							currData += crlf;
+
+							// Mark end of the request.
+							currData += dashdash;
+							currData += boundary;
+							currData += dashdash;
+							currData += crlf;
+
+							DnD.currItem.postData = currData;
+
+							DnD.total += DnD.currItem.postData.length;
+
+
+							DnD.currItem.readerStatus = true;
+
+							DnD.stopped = false;
+							DnD.fileReadStart();
+						},
+						// OK
+						_fileReadComplete: function(e)
+						{
+							DnD.currReader = e.target;
+
+							if (DnD.currReader.readyState == FileReader.DONE)
+							{
+								if (DnD.onFileReadComplete)
+									DnD.onFileReadComplete(DnD.currItem, DnD);
+
+								if (!DnD.stopped)
+									DnD.fileBuildStart();
+							}
+							else
+							{
+								DnD.currItem.setError(2);
+								DnD.currItem.errorText += DnD.currReader.readyState;
+
+								if (DnD.onFileReadError)
+									DnD.onFileReadError(DnD.currItem);
+
+								DnD.currItem.readerStatus = true;
+
+								DnD.fileReadStart();
+							}
+						},
+						// OK
+						_readStart: function(e)
+						{
+
+							Utils.log("_readStart", e);
+
+							//var dt = e.dataTransfer;
+
+							/*
+							 if (dt.types.contains('x-star-trek/tribble')) {
+							 // Filter out this particular data type.
+							 $.log('#data_transfer .messages',
+							 'This data type is denied for drop.');
+							 return true;
+							 }*/
+
+							/* var types = [];
+							 for (var i=0,type; type=dt.types[i]; i++)
+							 types.push(type);
+
+							 Utils.info('drop types received: ' + types.join(', '));
+
+							 // Grab a variety of data types we know how to handle
+							 Utils.log(dt.getData('URL'));
+							 Utils.log(dt.getData('Text'));
+							 Utils.log(dt.getData('text/html'));*/
+
+							if (DnD.dragOverClass && DnD.dropArea)
+								DnD.dropArea.removeClass(DnD.dragOverClass);
+
+							if (e)
+								DnD.prevent(e);
+
+							DnD.progress = 0;
+							DnD.total = 0;
+							DnD.loaded = 0;
+
+							DnD.aborted = false;
+
+							DnD.uploadSpeed = 0;
+							DnD.uploadTimeRemaing = 0;
+							DnD.uploadTimeStart = 0;
+							DnD.uploadTimeComplete = 0;
+
+
+							Utils.log("e ", e);
+
+							// dane plik\u00F3w
+							if (e && e.type == "change")
+							{
+								DnD.files = e.target.files;
+								if (DnD.onFilesChoosen)
+									DnD.onFilesChoosen(DnD);
+							}
+
+							if (e && e.type == "drop")
+							{
+								DnD.files = e.dataTransfer.files;
+								if (DnD.onFilesDropped)
+									DnD.onFilesDropped(DnD);
+							}
+
+							// kolejka post\u00F3w
+							DnD.uploadQueue = new Array();
+
+							for (var i = 0; i < DnD.files.length; i++)
+							{
+								var item = new UploadItem();
+								item.file = DnD.files[i];
+
+								//Utils.log("DNDUpload._readStart", item.file.name, "MIME", item.file.type);
+
+								var reAllowed = new RegExp("(\\.(" + DnD.allowedExtensions + "))$", "i");
+								var reNotAllowed = new RegExp("(\\.(" + DnD.notAllowedExtensions + "))$", "i");
+
+								if (item.file.size > 0 && (DnD.allowedTypes.indexOf(item.file.type) != -1 || reAllowed.test(item.file.name)) && !reNotAllowed.test(item.file.name))
+								{
+									item.realName = DnD.prepareNonASCII(item.file.name.replace(reAllowed, ""));
+									item.fileReader = new FileReader();
+									item.fileReader.fileName = item.file.name;
+									item.fileReader.index = i;
+									item.xhr = new XMLHttpRequest();
+
+									DnD.uploadQueue.push(item);
+								}
+								else
+								{
+									item.setError(1);
+									item.errorText += item.file.type;
+
+									if (DnD.onFileReadError)
+										DnD.onFileReadError(item);
+								}
+							}
+
+							if (DnD.uploadQueue.length)
+							{
+								if (DnD.onReadStart)
+									DnD.onReadStart(item, DnD);
+
+								DnD.fileReadStart();
+
+							} else {
+
+								if (DnD.onUploadComplete)
+									DnD.onUploadComplete(item, DnD);
+							}
+						},
+						// OK
+						fileReadStart: function()
+						{
+							var currIndex = this.getNextRead();
+							if (currIndex < this.uploadQueue.length)
+							{
+								this.currItem = this.uploadQueue[currIndex];
+								this.currItem.fileReader.onloadend = this._fileReadComplete;
+								this.currItem.fileReader.onloadstart = this._fileReadLoadStart;
+
+								if ($.browser.msie /*&& parseInt($.browser.version) >= 10 */)
+									this.currItem.fileReader.readAsArrayBuffer(this.currItem.file);
+								else
+									this.currItem.fileReader.readAsBinaryString(this.currItem.file);
+							}
+							else
+							{
+								if (this.onReadComplete)
+									this.onReadComplete(this.currItem, this);
+
+								this.uploadStart();
+							}
+						},
+						_fileReadLoadStart: function()
+						{
+							if (DnD.onFileReadStart)
+								DnD.onFileReadStart(DnD.currItem, DnD);
+						},
+						// OK
+						abortFileUpload: function(item)
+						{
+							if (item)
+							{
+								item.xhr.abort();
+								item.aborted = true;
+								item.uploadStatus = true;
+							}
+
+							this.fileUploadStart();
+						},
+						// OK
+						abortUpload: function()
+						{
+							this.aborted = true;
+							this.abortFileUpload(this.currItem);
+
+							if (this.onUploadAborted)
+								this.onUploadAborted(this.uploadQueue);
+						},
+						// OK
+						prevent: function(e)
+						{
+							e.preventDefault();
+						},
+						// OK
+						_onDragOver: function(e)
+						{
+							if (e.type == "dragenter")
+							{
+								DnD.dropArea.addClass(DnD.dragOverClass);
+							}
+
+							if (e.type == "dragleave")
+							{
+								if (e.relatedTarget == null)
+									DnD.dropArea.removeClass(DnD.dragOverClass);
+								else
+									e.stopPropagation();
+							}
+						},
+						// OK
+						preventElement: function(i, elem)
+						{
+							var el = $(elem).get(0);
+
+							el.addEventListener('dragover', DnD.prevent, false);
+
+							if (DnD.dragOverClass && DnD.dropArea.get(0) == el)
+							{
+								el.addEventListener('dragenter', DnD._onDragOver, false);
+								el.addEventListener('dragleave', DnD._onDragOver, false);
+							}
+							else
+							{
+								el.addEventListener('dragenter', DnD.prevent, false);
+								el.addEventListener('dragleave', DnD.prevent, false);
+							}
+						},
+						// OK
+						preventChildren: function(elem)
+						{
+							elem.children().each(DnD.preventElement);
+						},
+						_dragInputChange: function(e)
+						{
+							//DnD.fakeInput.val(DnD.dragInput.val());
+
+							Utils.log("_dragInputChange ", e);
+
+							if (DnD.dragInput.val())
+							{
+								if (DnD.DnDready)
+								{
+									DnD._readStart(e);
+								}
+								else
+								{
+									if (DnD.exFormElem)
+									{
+										//Utils.log("exFormSubmit ", DnD.dragInput.val());
+										DnD.exFormSubmit();
+									}
+									else
+									{
+										DnD.dragForm.submit();
+										//Utils.log("dragForm.submit ", DnD.dragInput.val());
+									}
+
+									/*
+									 if ($.browser.msie)
+									 {
+									 //Utils.log("dragInput.clone ", DnD.dragInput.val());
+
+									 var tmpInput = DnD.dragInput.clone(true);
+									 DnD.dragInput.replaceWith(tmpInput);
+									 DnD.dragInput = tmpInput;
+									 }*/
+
+									//Utils.log("browser.msie ", DnD.dragInput.val());
+								}
+							}
+						},
+						_dragInputClick: function(e)
+						{
+							//Utils.log("_dragInputClick");
+							e.stopPropagation();
+
+
+							//if ($.browser.msie)
+							setTimeout(DnD._dragInputChange, 0);
+						},
+						_fakeInputClick: function(e)
+						{
+							e.preventDefault();
+							e.stopPropagation();
+							//DnD.dragInput.val("");
+							DnD.dragInput.click();
+						},
+						_onFrameError: function(data)
+						{
+							Utils.onError("DNDUpload._onFrameLoaded" + data);
+						},
+						_onFrameLoaded: function(data)
+						{
+							if (DnD.onFrameLoaded && DnD.beforeFrameLoaded)
+							{
+								DnD.onFrameLoaded(DnD.currItem, DnD, DnD.uploadFrame);
+							}
+
+							DnD.beforeFrameLoaded = false;
+						},
+						prepareNonASCII: function(text)
+						{
+							if (/[^\x20-\x7E]/.test(text))
+							{
+								text = unescape(encodeURIComponent(text));
+								return text;
+							}
+							return text;
+						},
+						// OK
+						stop: function()
+						{
+							DnD.stopped = true;
+						},
+						// OK
+						init: function()
+						{
+							this
+									.addClass("dropArea")
+									.empty();
+
+							this.dragInput = $("<input>")
+									.addClass("bigButton fakeButton " + this.fakeButtonClass)
+									.attr("type", "file")
+									.attr("name", this.fieldName)
+									.attr("autocomplete", "off");
+
+							DnD.beforeFrameLoaded = false;
+
+							var iframe;
+
+							try {
+								iframe = document.createElement('<iframe name="uploadFrame">');
+							} catch (ex) {
+								iframe = document.createElement('iframe');
+							}
+
+							this.uploadFrame = $(iframe)
+									.addClass("uploadFrame")
+									.attr("name", "uploadFrame")
+									.attr("id", "uploadFrame")
+									.css({
+								position: "absolute",
+								width: 1,
+								height: 1
+							})
+									.load(this._onFrameLoaded)
+									.error(this._onFrameError);
+
+							this.exForm = this.parents("form").eq(0);
+							this.exFormElem = this.exForm.get(0);
+
+							if (this.exFormElem)
+							{
+								this.dragForm = $("<div>")
+										.addClass("fakeForm");
+
+								this.exFormSubmit = function() {
+
+									var tmpData = {
+										action: this.exForm.attr("action"),
+										method: this.exForm.attr("method"),
+										enctype: this.exForm.attr("enctype"),
+										encoding: this.exForm.attr("encoding"),
+										target: this.exForm.attr("target")
+									}
+
+									this.exForm
+											.attr("action", this.uploadScript)
+											.attr("method", "post")
+											.attr("target", "uploadFrame")
+											.attr("enctype", "multipart/form-data")
+											.attr("encoding", "multipart/form-data");
+
+
+									if (this.onBeforeFileUploadStart)
+									{
+										this.onBeforeFileUploadStart(DnD.currItem, DnD, function() {
+
+											DnD.beforeFrameLoaded = true;
+											DnD.exForm.submit();
+											DnD.exForm
+													.attr("action", tmpData.action)
+													.attr("method", tmpData.method)
+													.attr("target", tmpData.target)
+													.attr("enctype", tmpData.enctype)
+													.attr("encoding", tmpData.encoding);
+										});
+									}
+									else
+									{
+										this.beforeFrameLoaded = true;
+										this.exForm.submit();
+										this.exForm
+												.attr("action", tmpData.action)
+												.attr("method", tmpData.method)
+												.attr("target", tmpData.target)
+												.attr("enctype", tmpData.enctype)
+												.attr("encoding", tmpData.encoding);
+									}
+								}
+
+								this.append(this.dragForm);
+								this.exForm.after(this.uploadFrame);
+							}
+							else
+							{
+								this.readyFID = false;
+								this.dragForm = $("<form>")
+										.addClass("fakeForm")
+										.attr("action", this.uploadScript)
+										.attr("method", "post")
+										.attr("target", "uploadFrame")
+										.attr("enctype", "multipart/form-data")
+										.attr("encoding", "multipart/form-data")
+										.submit(function(e) {
+
+									DnD.beforeFrameLoaded = true;
+
+									if (!DnD.readyFID) {
+										e.preventDefault(e);
+										if (DnD.onBeforeFileUploadStart)
+											DnD.onBeforeFileUploadStart(DnD.currItem, DnD, function() {
+												DnD.readyFID = true;
+												DnD.dragForm.submit();
+											});
+									} else {
+										DnD.readyFID = false;
+									}
+								});
+
+								this.append(this.dragForm);
+								this.dragForm.after(this.uploadFrame);
+							}
+
+							if ($.browser.msie /*&& parseInt($.browser.version) < 10 */)
+							{
+								//Utils.warn($.browser.version );
+
+								this.dragInput
+										.bind("click", this._dragInputClick);
+
+								this.dragForm.append(this.dragInput);
+
+								this.uploadFrame
+										.attr("name", "uploadFrame");
+								// dla glupiego IE
+							}
+							else
+							{
+								this.dragInput
+										.addClass("dragInput")
+										.bind("change", this._dragInputChange);
+
+								/*this.dragInput
+								 .bind("click",this._dragInputClick);*/
+
+								this.dragForm
+										.append(this.dragInput);
+							}
+
+							if (this.DnDready)
+							{
+								if (this.multiple)
+									this.dragInput.attr("multiple", "multiple");
+
+								if (this.dropAreaSelector)
+								{
+									Utils.log(this.dropAreaSelector);
+
+									this.dropArea = $(this.dropAreaSelector);
+
+									this.preventChildren(this.dropArea);
+									this.dropArea.get(0).addEventListener('drop', this._readStart, false);
+									this.preventElement(0, this.dropArea);
+								}
+								else
+								{
+									this.preventChildren(this);
+									this.get(0).addEventListener('drop', this._readStart, false);
+									this.preventElement(0, this);
+								}
+							} else {
+								if (this.onNonDnDInit)
+									this.onNonDnDInit(this);
+							}
+
+							this.dragInput.fileInputSkinning(true);
+
+							this.fakeName = this.find(".fakeName");
+
+							Utils.log("this.fakeName", $(this.fakeName).text());
+							$(this.fakeName).text(DnD.fakeNameText);
+						}
+					}
+
+			this.multiple = true;
+			this.stopped = false;
+			this.dragOverClass = "dragOver";
+			this.fieldName = "user_file[]";
+			this.uploadScript = "_upload.php";
+			this.allowedTypes = ["image/gif", "image/jpeg", "image/png", "image/bmp", "application/zip", "application/x-zip-compressed"];
+			this.allowedExtensions = "zip|gif|jpg|jpeg|png";
+			this.notAllowedExtensions = "";
+			this.progressDisabled = false;
+			this.fakeNameText = "Wybierz pliki z dysku";
+
+			$.extend(this, methods, options);
+
+			this.init();
+
+			return this;
+		}
+	});
+
+}((typeof WP !== "undefined" && WP.$) ? WP.$ : $));
+
+
+// IMPORTANT
+// dla przegladarek ktore
+// nie maja wbudowanej obslugi 'sendAsBinary'
+if (typeof XMLHttpRequest.prototype.sendAsBinary === 'undefined') {
+	XMLHttpRequest.prototype.sendAsBinary = function(data) {
+		var ords = Array.prototype.map.call(data, function(x) {
+			return x.charCodeAt(0) & 0xff;
+		});
+		var ui8a = new Uint8Array(ords);
+		this.send(ui8a.buffer);
+	}
+}
+;
+(function($) {
+
+	$.fn.validate = function(valid, validation, text, data) {
+
+		var
+				field = this,
+				fieldset,
+				deco,
+				id = valid.length;
+
+		if (field.length > 0)
+		{
+			valid[id] = field
+					.unbind('clear').bind('clear', function() {
+				doValidateClear(field, data);
+			})
+					.unbind('validate').bind('validate', function() {
+				doValidateUpdate(field, data);
+			})
+					.unbind('change blur').bind('change blur', function(e) {
+
+				if (!field.data("onBlurNoValidate") || e.type == "change") {
+
+					// jezeli boxy
+					if (field.is(":radio,:checkbox"))
+					{
+						fieldset = field.parents(".row");
+						deco = fieldset.find('.deco').eq(0);
+
+						if (deco.length == 0)
+							deco = $("<span/>").addClass('deco');
+
+						if (fieldset.is(".set"))
+						{
+							deco.appendTo(fieldset);
+						}
+						else {
+							deco.hide();
+						}
+					}
+					// jezeli inputy lub selekty
+					else
+					{
+						deco = field.nextAll('.deco').eq(0);
+
+						if (deco.length == 0)
+							deco = $("<span/>").addClass('deco').insertAfter(field);
+
+						if (field.is(":visible"))
+							deco.css("top", field.position().top);
+					}
+					doValidate(field, data, false, e.type == "blur");
+				}
+			});
+
+			doValidate(field, data, true, false);
+		}
+
+		function doValidate(field, data, silent, blur) {
+
+			// sukces
+			if (validation(field, data)) {
+				if (!silent) {
+
+					deco.removeClass('error').html("");
+					field.removeClass('error');
+					field.parent().removeClass('error');
+
+					if (typeof text == "object") {
+
+						if (typeof text.onSuccess == "function")
+							text.onSuccess(field);
+
+						if (typeof text.onAfterValidation == "function")
+						{
+							var after = true;
+							var val = field.val() != "";
+							var afterValid = text.onAfterValidation(field);
+
+							deco.toggleClass('success', afterValid && val);
+							deco.toggleClass('error', !afterValid);
+
+							field.toggleClass('success', afterValid && val);
+							field.toggleClass('error', !afterValid);
+
+							field.parent().toggleClass('success', afterValid && val);
+							field.parent().toggleClass('error', !afterValid);
+
+							Utils.warn("afterValid", afterValid);
+						}
+						else {
+							if (field.val() != "")
+								deco.addClass('success');
+						}
+					}
+				}
+
+				if (after)
+					valid[id].state = afterValid;
+				else
+					valid[id].state = true;
+
+			} else {
+
+				if (!silent) {
+
+					deco.removeClass('success').addClass('error').show();
+					field.removeClass('success').addClass('error');
+					field.parent().removeClass('success').addClass('error');
+
+					if (typeof text == "function") {
+						text(field);
+					}
+					else
+					if (typeof text == "object") {
+						if (typeof text.onError == "function")
+							text.onError(field);
+					}
+
+					if (!blur)
+						field.eq(0).focus();
+				}
+				valid[id].state = false;
+			}
+		}
+
+		function doValidateClear(field, data) {
+
+			Utils.log("doValidateClear", field, data);
+
+			if (deco)
+				deco.removeClass('error').html("");
+
+			field.removeClass('error');
+			field.parent().removeClass('error');
+
+			if (typeof text == "object")
+				if (typeof text.onSuccess == "function")
+					text.onSuccess(field);
+		}
+
+
+		function doValidateUpdate(field, data) {
+
+			Utils.log("doValidateUpdate", field, data);
+
+			// sukces
+			if (validation(field, data)) {
+				/*if (typeof text == "object") {
+				 if (typeof text.onAfterValidation == "function") {
+				 var after = true;
+				 var afterValid = text.onAfterValidation(field);
+				 }
+				 }
+				 if (after)
+				 valid[id].state = afterValid;
+				 else*/
+				valid[id].state = true;
+			} else {
+				valid[id].state = false;
+			}
+		}
+
+		return this;
+	};
+
+}((typeof WP !== "undefined" && WP.$) ? WP.$ : $));// funkcje walidujace i inne
+// KEYBOARD -------------------------
+function isKeyArrow(which) {
+	return (which >= 37 && which <= 40);
+}
+
+function isKeyNumeric(which) {
+	return (which >= 48 && which <= 57);
+}
+
+function isKeyAlpha(which) {
+	return (which >= 97 && which <= 122 || which >= 65 && which <= 90 || which == 32);
+}
+
+function isKeyLoginSpecialChar(which) {
+	return (which == 45 || which == 46 || which == 95);
+}
+
+function isKeyNavigation(which) {
+	return (which == 9 || which >= 35 && which <= 45);
+}
+
+function isKeyDelete(which) {
+	return (which == 8 || which == 0);
+}
+
+function isKeyPrintable(which) {
+	Utils.log(which);
+	return (which >= 32 && which <= 125 || which >= 188 && which <= 222 || which == 8 || which == 46);
+}
+
+function isNotEmpty(ev) {
+	if (ev.is(':visible'))
+		return ('' != cleanValue(ev));
+	else
+		return true;
+}
+
+function isEmpty(ev) {
+	if (ev.is(':visible'))
+		return ('' == cleanValue(ev));
+	else
+		return true;
+}
+
+function isEmailOrEmpty(ev) {
+	if (isEmpty(ev))
+		return true;
+	else
+		return isEmail(ev);
+}
+
+function isPhoneNumberOrEmpty(ev) {
+	if (isEmpty(ev))
+		return true;
+	else
+		return isPhoneNumber(ev);
+}
+
+function isPhoneToken(ev) {
+	if (ev.is(':visible'))
+		return /^[0-9]{8}$/.test(cleanValue(ev));
+	else
+		return true;
+}
+
+function isNotEqualTo(ev, eq) {
+	if (ev.is(':visible'))
+		return (eq != cleanValue(ev));
+	else
+		return true;
+}
+
+function isNotEqual(ev, eq) {
+	if (ev.is(':visible') && eq.is(':visible'))
+		return (cleanValue(eq) != cleanValue(ev));
+	else
+		return true;
+}
+
+function isEqual(ev, eq) {
+	if (ev.is(':visible') && eq.is(':visible'))
+		return (cleanValue(eq) == cleanValue(ev));
+	else
+		return false;
+}
+
+function isEqualOrEmpty(ev, eq) {
+	if (ev.is(':visible') && eq.is(':visible')) {
+		if (isEmpty(ev) || isEmpty(eq))
+			return true;
+		else
+			return (cleanValue(eq) == cleanValue(ev));
+	}
+	else
+		return false;
+}
+
+
+
+function isNumber(ev, len) {
+	return (new RegExp("^[0-9]{" + len + "}$")).test(cleanValue(ev));
+}
+
+function isCheckedAny(ev) {
+	if (ev.filter(':visible').length > 0)
+		return ev.filter(':checked').length > 0;
+	else
+		return true;
+}
+
+function isVisibleNumber(ev) {
+	if (ev.is(':visible'))
+		return isNumber(ev, "1,");
+	else
+		return true;
+}
+
+function isChecked(ev) {
+	if (ev.is(':visible'))
+		return ev.is(':checked');
+	else
+		return true;
+}
+
+function isSelected(ev) {
+	var value = WP.$.trim(ev.find("option:selected").val());
+	return value != "";
+}
+
+function isSelectedNumber(ev) {
+	if (ev.is(':visible'))
+		return ev.val() > -1;
+	else
+		return true;
+}
+
+function isLoginEmail(ev) {
+	return isLogin(ev) || isEmail(ev);
+}
+
+function isOldLoginOrEmail(ev) {
+	return isOldLogin(ev) || isEmail(ev);
+}
+
+function isLogin(ev) {
+	if (ev.is(':visible'))
+		return /^[a-z0-9]+\.?([_a-z0-9-]+\.?)*[a-z0-9]+$/i.test(cleanValue(ev));
+	else
+		return true;
+}
+
+function isOldLogin(ev) {
+	if (ev.is(':visible'))
+		return /^[a-z0-9]+\.?([_a-z0-9-]+\.?)*[a-z0-9_.]+$/i.test(cleanValue(ev));
+	else
+		return true;
+}
+
+function isEmail(ev) {
+	if (ev.is(':visible'))
+		return /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,16})$/i.test(cleanValue(ev));
+	else
+		return true;
+}
+
+function isPhoneNumber(ev) {
+	if (ev.is(':visible')) {
+		var val = cleanValue(ev);
+		return val.replace(/([^0-9])/g, '').length == 9 && /^[0-9-\s\.]+$/i.test(val);
+	}
+	else
+		return true;
+}
+
+function isNumberValid(ev, data) {
+	return /^[0-9]+$/.test(cleanValue(ev)) && cleanValue(ev) >= data.min && cleanValue(ev) <= data.max;
+}
+
+function isStringValid(ev, data) {
+	return cleanValue(ev).length >= data.min && (!data.max || (data.max && cleanValue(ev).length <= data.max));
+}
+
+function isName(ev) {
+	return isStringValid(ev, {
+		min: 2,
+		max: 90
+	});
+}
+
+function isSubdomainPart(ev) {
+	return /^[a-zA-Z0-9][a-zA-Z0-9\-_]{2,30}[a-zA-Z0-9]$/.test(cleanValue(ev));
+}
+
+function isPassword(ev) {
+	if (ev.is(':visible'))
+		return /^[\x21-\x7e]{8,50}$/.test(cleanValue(ev));
+	else
+		return true;
+}
+
+function isDateValidOrEmpty(day, month, year) {
+	if (day && month && year && day.val() && month.val() && year.val())
+		return isDateValid(day, month, year);
+	else
+		return true;
+}
+
+function isDateValid(day, month, year) {
+	return moment(year.val() + "-" + month.val() + "-" + day.val(), "YYYY-MM-DD").isValid() &&
+			isNumberValid(year, {
+		min: 1900,
+		max: (new Date()).getFullYear()
+	}) &&
+			isNumberValid(month, {
+		min: 1,
+		max: 12
+	}) &&
+			isNumberValid(day, {
+		min: 1,
+		max: 31
+	});
+}
+
+function isPasswordLength(ev) {
+	return isStringValid(ev, {
+		min: 8,
+		max: 50
+	});
+}
+
+function isPasswordComplicated(ev) {
+	var re = [new RegExp(/[a-z]+/), new RegExp(/[A-Z]+/), new RegExp(/[0-9]+/), new RegExp(/[\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E]+/)];
+	var groups = 0;
+	for (var i = 0; i < re.length; i++)
+		for (var j = 0; j < re.length; j++)
+			if (j != i && re[i].test(cleanValue(ev)) && re[j].test(cleanValue(ev)) && isPassword(ev))
+				return true;
+	return false;
+}
+
+function cleanValue(input) {
+	return (input.val() == input.attr('placeholder')) ? '' : WP.$.trim(input.val());
+}
+
+/* } INCLUDE JS */
+°˜ÔRÞj      Z“ÓŸZ“ÓŸ>È“ Z“ÔŒ   "    :https://profil.wp.pl/js/serwis.js necko:classified 1 strongly-framed 1 security-info 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 request-method GET response-head HTTP/2.0 200 OK
+server: nginx
+date: Mon, 26 Feb 2018 09:30:07 GMT
+content-type: application/x-javascript
+content-length: 72087
+last-modified: Mon, 26 Feb 2018 08:50:37 GMT
+accept-ranges: bytes
+X-Firefox-Spdy: h2
+ original-response-headers server: nginx
+date: Mon, 26 Feb 2018 09:30:07 GMT
+content-type: application/x-javascript
+content-length: 72087
+last-modified: Mon, 26 Feb 2018 08:50:37 GMT
+accept-ranges: bytes
+X-Firefox-Spdy: h2
+ uncompressed-len 0 net-response-time-onstart 31 net-response-time-onstop 80  —

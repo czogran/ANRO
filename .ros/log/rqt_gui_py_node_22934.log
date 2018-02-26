@@ -1,0 +1,15 @@
+[rospy.client][INFO] 2018-02-26 11:59:24,051: init_node, name[/rqt_gui_py_node_22934], pid[22934]
+[xmlrpc][INFO] 2018-02-26 11:59:24,051: XML-RPC server binding to 0.0.0.0:0
+[xmlrpc][INFO] 2018-02-26 11:59:24,052: Started XML-RPC server [http://tygrys.robotyka.ia.pw.edu.pl:34531/]
+[rospy.init][INFO] 2018-02-26 11:59:24,052: ROS Slave URI: [http://tygrys.robotyka.ia.pw.edu.pl:34531/]
+[rospy.impl.masterslave][INFO] 2018-02-26 11:59:24,053: _ready: http://tygrys.robotyka.ia.pw.edu.pl:34531/
+[rospy.registration][INFO] 2018-02-26 11:59:24,055: Registering with master node http://localhost:11311
+[xmlrpc][INFO] 2018-02-26 11:59:24,055: xml rpc node: starting XML-RPC server
+[rospy.init][INFO] 2018-02-26 11:59:24,154: registered with master
+[rospy.rosout][INFO] 2018-02-26 11:59:24,155: initializing /rosout core topic
+[rospy.rosout][INFO] 2018-02-26 11:59:24,158: connected to core topic /rosout
+[rospy.simtime][INFO] 2018-02-26 11:59:24,160: /use_sim_time is not set, will not subscribe to simulated time [/clock] topic
+[rospy.internal][INFO] 2018-02-26 11:59:24,457: topic[/rosout] adding connection to [/rosout], count 0
+[rospy.core][INFO] 2018-02-26 12:02:09,520: signal_shutdown [atexit]
+[rospy.internal][INFO] 2018-02-26 12:02:09,526: topic[/rosout] removing connection to /rosout
+[rospy.impl.masterslave][INFO] 2018-02-26 12:02:09,527: atexit

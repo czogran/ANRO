@@ -1,0 +1,365 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+<meta name="google-site-verification" content="CjkdY6BqKWAVmQ78_iSq6J7ZZ9AoL7-CjFVBYGg9FU4" />
+<link rel="shortcut icon" href="/custom/favicon.ico" type="image/ico" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/custom/js/sorttable.js"></script>
+<script type="text/javascript" src="/custom/libraries/jquery.min.js"></script>                         
+<script type="text/javascript" src="/custom/js/seesaw.js"></script> 
+<script type="text/javascript" src="/custom/js/rosversion.js"></script> 
+<!--script type="text/javascript" src="/custom/libraries/RGraph.common.core.js" ></script Used for metrics only, should be conditional, not at the top-->
+<!--script type="text/javascript" src="/custom/libraries/RGraph.bar.js" ></script same as above -->
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17821189-2']);
+  _gaq.push(['_setDomainName', 'wiki.ros.org']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[f.now()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,t){s[t]=o(d+t,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(l+"tracer",[f.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return t.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],n),e}finally{c.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=o(l+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,f.now()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],4:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o,i){if(!d.aborted||i){e&&e(n,r,o);for(var a=t(o),u=m(n),c=u.length,f=0;f<c;f++)u[f].apply(a,r);var p=s[y[n]];return p&&p.push([b,n,r,a]),a}}function l(e,t){v[e]=m(e).concat(t)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(n)}function g(e,t){f(e,function(e,n){t=t||"feature",y[n]=t,t in s||(s[t]=[])})}var v={},y={},b={on:l,emit:n,get:w,listeners:m,context:t,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},p={},d=t.exports=o();d.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!x++){var e=h.info=NREUM.info,t=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return s.abort();f(y,function(t,n){e[t]||(e[t]=n)}),c("mark",["onload",a()+h.offset],null,"api");var n=d.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),c=e("handle"),f=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=t.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","queueTime":0,"licenseKey":"4c8610d177","agent":"","transactionName":"NFZaMEVUV0ZVBkBeCQ0cbRZeGmt6Z0oe","applicationID":"3371695","errorBeacon":"bam.nr-data.net","applicationTime":125}</script>
+<meta name="robots" content="index,nofollow">
+
+<title>ROS/Tutorials/ExaminingPublisherSubscriber - ROS Wiki</title>
+<script type="text/javascript" src="/moin_static197/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Szukaj";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="/moin_static197/rostheme/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="/moin_static197/rostheme/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="/moin_static197/rostheme/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="/moin_static197/rostheme/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="/moin_static197/rostheme/css/msie.css">
+<![endif]-->
+
+
+
+
+<link rel="canonical" href="http://wiki.ros.org/ROS/Tutorials/ExaminingPublisherSubscriber" />
+
+<link rel="Start" href="/Documentation">
+<link rel="Alternate" title="Język oznaczeń wiki" href="/ROS/Tutorials/ExaminingPublisherSubscriber?action=raw">
+<link rel="Alternate" media="print" title="Podgląd wydruku" href="/ROS/Tutorials/ExaminingPublisherSubscriber?action=print">
+<link rel="Up" href="/ROS/Tutorials">
+<link rel="Appendix" title="rxconsole(pusub).png" href="/ROS/Tutorials/ExaminingPublisherSubscriber?action=AttachFile&amp;do=view&amp;target=rxconsole%28pusub%29.png">
+<link rel="Appendix" title="rxgraph(pubsub).png" href="/ROS/Tutorials/ExaminingPublisherSubscriber?action=AttachFile&amp;do=view&amp;target=rxgraph%28pubsub%29.png">
+<link rel="Search" href="/FindPage">
+<link rel="Index" href="/TitleIndex">
+<link rel="Glossary" href="/WordIndex">
+<link rel="Help" href="/HelpOnFormatting">
+</head>
+
+<body  lang="pl" dir="ltr">
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-5950817-2");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+if(f) f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+if(e) {
+  searchChange(e);
+  searchBlur(e);
+}
+
+function handleSubmit() {
+  var f = document.getElementById('searchform');
+  var t = document.getElementById('searchinput');
+  var r = document.getElementById('real_searchinput');
+
+  //alert("handleSubmit "+ t.value);
+  if(t.value.match(/review/)) {
+    r.value = t.value;
+  } else {
+    //r.value = t.value + " -PackageReviewCategory -StackReviewCategory -M3Review -DocReview -ApiReview -HelpOn -BadContent -LocalSpellingWords";
+    r.value = t.value + " -PackageReviewCategory -StackReviewCategory -DocReview -ApiReview";
+  }
+  //return validate(f);
+}
+//-->
+</script>
+
+<div id="dpage">
+  <div id="dpage-inner">
+    <div id="header"><div id="topnav">
+
+<!-- Alert box -->
+<!-- To enable/disable the alert box, uncomment/comment the block below and update the content below the button. -->
+<!--
+    <div class="alert alert-info alert-dismissable" style="text-align: center;">
+<script>
+jQuery(function( $ ){
+    alert_box_name = 'roswiki_roscon'
+    state = localStorage.getItem(alert_box_name);
+    if (!state) {
+      localStorage.setItem(alert_box_name, 'open');
+    }
+    state = localStorage.getItem(alert_box_name);
+    if (state == 'closed') {
+        $( '#topnav .alert' ).hide();
+    }
+    $( '.close' ).click(function () {
+	console.log('in .close.click');
+        localStorage.setItem(alert_box_name, 'closed');
+        $( '#topnav .alert' ).hide();
+  });
+});
+</script>
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <a href="http://roscon.ros.org">ROSCon 2017</a> will be in Vancouver, September 21-22! <br>
+      The last few years have sold out: register now and take advantage of discounted hotel rates</a>.
+    </div>
+-->
+<!-- End Alert box -->
+
+      <table id="topnav-table">
+        <tr>
+          <td width="300" valign="top"><a href="/"><img border="0" src="/custom/images/ros_org.png" alt="ros.org" width="238" height="51"/></a></td>
+          <td width="500" valign="middle">
+            <a href="http://www.ros.org/about-ros">About</a>
+            |
+            <a href="/Support">Support</a>
+            |
+            <a href="http://discourse.ros.org/">Discussion Forum</a>
+            |
+            <a href="http://status.ros.org/">Service Status</a>
+            |
+            <a href="http://answers.ros.org/">Q&A answers.ros.org</a>
+
+<!--<a href="http://roscon.ros.org/2016/"><img align="middle" style="padding-left: 15px;" src="http://ros.org/images/roscon_wiki_header.jpg" width="133" height="65" alt="ROSCon 2016" /></a>
+-->
+
+<!-- <a href="https://events.osrfoundation.org/ros-kong-2014/"><img align="middle" style="padding-left: 15px;" src="http://ros.org/images/ros_kong_2014_badge.png" width="133" height="38" alt="roskong" /></a>
+-->
+<!--a href="https://events.osrfoundation.org/ros-kong-2014/"><img align="middle" style="padding-left: 15px;" src="http://imgur.com/eMzUJVe.png" width="133" height="38" alt="roskong" /></a-->
+          </td>
+
+          <td valign="middle" align="right">
+
+<script language="Javascript">
+
+function Searchy(theButton){
+
+theForm = theButton.form;
+newID = theForm.input.value;
+theForm.q.value = newID;
+theForm.input.value=theForm.input.value
+
+}
+</script>
+
+
+<form action="http://www.ros.org/search/index.html" id="cse">
+  <div>
+    <label>Search:</label>
+    <input type="hidden" name="cx" value="018259903093183594226:txvzw9fat6w" />
+    <input type="hidden" name="cof" value="FORID:11;NB:1" />
+    <input type="hidden" name="filter" value="0" />
+    <input type="hidden" name="num" value="10" />
+
+    <input type="hidden" name="ie" value="UTF-8" />
+    <input type="text" name="input" id="input" autocomplete="on" style="width: 35%"/>
+    <input type="hidden" name="q" value="" />
+    <input type="submit" name="sa" value="Submit" onClick="Searchy(this)"/>
+
+  </div>
+</form>
+
+         </td>
+      </tr>
+      <tr>
+        <td colspan="3" height="53" width="1024"><nobr><img src="/custom/images/menu_left.png" width="17" height="53" alt=""/><a href="/"><img
+        border="0" src="/custom/images/menu_documentation.png" width="237" height="53" alt="Documentation" /></a><img
+        src="/custom/images/menu_spacer.png" width="69" height="53" /><a href="http://www.ros.org/browse/"><img border="0"
+        src="/custom/images/menu_browse_software.png" width="268" height="53" alt="Browse Software" /></a><img
+        src="/custom/images/menu_spacer.png" width="69" height="53" /><a href="http://www.ros.org/news"><img border="0"
+        src="/custom/images/menu_news.png" width="84" height="53" alt="News" /></a><img
+        src="/custom/images/menu_spacer.png" width="69" height="53" /><a href="/ROS/Installation"><img border="0"
+        src="/custom/images/menu_download.png" width="151" height="53" alt="Download" /></a><img
+        src="/custom/images/menu_right.png" width="60" height="53" /></nobr></td>
+
+      </tr>
+    </table> <!-- topnav-table -->
+
+    </div> <!-- /#topav -->
+  </div> <!-- /#header -->
+
+
+<div id="header2">
+
+<ul id="pagelocation">
+<li><a href="/ROS">ROS</a></li><li><a href="/ROS/Tutorials">Tutorials</a></li><li><a class="backlink" href="/action/fullsearch/ROS/Tutorials/ExaminingPublisherSubscriber?action=fullsearch&amp;context=180&amp;value=linkto%3A%22ROS%2FTutorials%2FExaminingPublisherSubscriber%22" rel="nofollow" title="Kliknij aby poszukać tytułu metodą pełnotekstową">ExaminingPublisherSubscriber</a></li>
+</ul>
+
+<div id="locationline">
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="/Distributions">Distributions</a></li><li class="wikilink"><a href="/ROS/Installation">ROS/Installation</a></li><li class="wikilink"><a href="/ROS/Tutorials">ROS/Tutorials</a></li><li class="wikilink"><a href="/RecentChanges">RecentChanges</a></li><li class="current"><a href="/ROS/Tutorials/ExaminingPublisherSubscriber">ExaminingPu...rSubscriber</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>Strona</h1>
+<ul class="editbar"><li><span class="disabled">Strona statyczna</span></li><li class="toggleCommentsButton" style="display:none;"><a href="#" class="nbcomment" onClick="toggleComments();return false;">Komentarze</a></li><li><a class="nbinfo" href="/action/info/ROS/Tutorials/ExaminingPublisherSubscriber?action=info" rel="nofollow">Info</a></li><li><a class="nbattachments" href="/action/AttachFile/ROS/Tutorials/ExaminingPublisherSubscriber?action=AttachFile" rel="nofollow">Załączniki</a></li><li>
+<form class="actionsmenu" method="GET" action="/ROS/Tutorials/ExaminingPublisherSubscriber">
+<div>
+    <label>Więcej operacji:</label>
+    <select name="action"
+        onchange="if ((this.selectedIndex != 0) &&
+                      (this.options[this.selectedIndex].disabled == false)) {
+                this.form.submit();
+            }
+            this.selectedIndex = 0;">
+        <option value="raw">Tekst surowy</option>
+<option value="print">Podgląd wydruku</option>
+<option value="RenderAsDocbook">Utwórz jako Docbook</option>
+<option value="show" disabled class="disabled">Usuń pamięć podręczną</option>
+<option value="show" disabled class="disabled">------------------------</option>
+<option value="SpellCheck">Sprawdź pisownię</option>
+<option value="LikePages">Podobne strony</option>
+<option value="LocalSiteMap">Lokalna mapa witryny</option>
+<option value="show" disabled class="disabled">------------------------</option>
+<option value="RenamePage" disabled class="disabled">Zmień nazwę strony</option>
+<option value="CopyPage">Kopiuj stronę</option>
+<option value="DeletePage" disabled class="disabled">Usuń stronę</option>
+<option value="show" disabled class="disabled">------------------------</option>
+<option value="MyPages">Moje strony</option>
+<option value="show" disabled class="disabled">Zasubskrybuj Czytelnika</option>
+<option value="show" disabled class="disabled">------------------------</option>
+<option value="show" disabled class="disabled">Usuń spam</option>
+<option value="show" disabled class="disabled">Przywróć do tej wersji</option>
+<option value="PackagePages">Spakuj strony</option>
+<option value="SyncPages">Synchronizuj strony</option>
+<option value="show" disabled class="disabled">------------------------</option>
+<option value="CreatePdfDocument">CreatePdfDocument</option>
+<option value="Load">Wczytaj</option>
+<option value="RawFile">RawFile</option>
+<option value="Save">Zachowaj</option>
+<option value="SlideShow">SlideShow</option>
+    </select>
+    <input type="submit" value="Wykonaj">
+    
+</div>
+<script type="text/javascript">
+<!--// Init menu
+actionsMenuInit('Więcej operacji:');
+//-->
+</script>
+</form>
+</li></ul>
+
+</div>
+<div class="sidepanel">
+<h1>Czytelnik</h1>
+<ul id="username"><li><a href="/action/login/ROS/Tutorials/ExaminingPublisherSubscriber?action=login" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line867"><span class="anchor" id="line-1-1"></span><span class="anchor" id="line-2-1"></span><div><table><tbody><tr>  <td style="background-color: #cce0ff"><strong>Note:</strong> This tutorial assumes that you have completed the previous tutorials:   writing a simple publisher and subscriber <a href="/ROS/Tutorials/WritingPublisherSubscriber%28python%29">(python)</a> <a href="/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29">(c++)</a>. </td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-3-1"></span><span class="anchor" id="line-4-1"></span><span class="anchor" id="line-5-1"></span><span class="anchor" id="line-6-1"></span><div><table><tbody><tr>  <td style="background-color: #bbceee"> <img alt="(!)" height="15" src="/moin_static197/rostheme/img/idea.png" title="(!)" width="15" /> Please ask about problems and questions regarding this tutorial on <a class="http" href="http://answers.ros.org">answers.ros.org</a>. Don't forget to include in your question the link to this page, the versions of your OS &amp; ROS, and also add appropriate tags.</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-7-1"></span><span class="anchor" id="line-8-1"></span><span class="anchor" id="line-9-1"></span>
+<h1 id="Examining_the_Simple_Publisher_and_Subscriber">Examining the Simple Publisher and Subscriber</h1>
+<span class="anchor" id="line-10-1"></span><strong>Description:</strong> This tutorial examines running the simple publisher and subscriber.<br>
+<br>
+ <span class="anchor" id="line-11-1"></span><span class="anchor" id="line-12-1"></span><span class="anchor" id="line-13-1"></span><span class="anchor" id="line-14-1"></span><strong>Tutorial Level:</strong> BEGINNER<br>
+ <br>
+ <span class="anchor" id="line-15-1"></span><span class="anchor" id="line-16-1"></span><strong>Next Tutorial:</strong> Writing a simple service and client  <a href="/ROS/Tutorials/WritingServiceClient%28python%29">(python)</a> <a href="/ROS/Tutorials/WritingServiceClient%28c%2B%2B%29">(c++)</a><br>
+ <br>
+  <span class="anchor" id="line-17-1"></span><p class="line874"> <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">PomocSpisTreści<ol><li>
+<a href="#Running_the_Publisher">Running the Publisher</a></li><li>
+<a href="#Running_the_Subscriber">Running the Subscriber</a></li></ol></li></ol></div><p class="line874"> <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line867">
+<h2 id="Running_the_Publisher">Running the Publisher</h2>
+<span class="anchor" id="line-24"></span><p class="line874">Make sure that a roscore is up and running: <span class="anchor" id="line-25"></span><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><pre><span class="anchor" id="line-1-2"></span>$ roscore</pre><span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span><p class="line867"><span style="background-color:#FFFF00; font-weight:bold; padding: 3px;">catkin specific</span> <span class="anchor" id="line-30"></span>If you are using catkin, make sure you have sourced your workspace's setup.sh file after calling <tt class="backtick">catkin_make</tt> but before trying to use your applications: <span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><p class="line867"><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><pre><span class="anchor" id="line-1-3"></span># In your catkin workspace
+<span class="anchor" id="line-2-2"></span>$ cd ~/catkin_ws
+<span class="anchor" id="line-3-2"></span>$ source ./devel/setup.bash</pre><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><p class="line874">In the last tutorial we made a publisher called "talker". Let's run it: <span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><pre><span class="anchor" id="line-1-4"></span>$ rosrun beginner_tutorials talker      (C++)
+<span class="anchor" id="line-2-3"></span>$ rosrun beginner_tutorials talker.py   (Python) </pre><span class="anchor" id="line-43"></span><p class="line874">You will see something similar to: <span class="anchor" id="line-44"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span><span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><pre><span class="anchor" id="line-1-5"></span>[INFO] [WallTime: 1314931831.774057] hello world 1314931831.77
+<span class="anchor" id="line-2-4"></span>[INFO] [WallTime: 1314931832.775497] hello world 1314931832.77
+<span class="anchor" id="line-3-3"></span>[INFO] [WallTime: 1314931833.778937] hello world 1314931833.78
+<span class="anchor" id="line-4-2"></span>[INFO] [WallTime: 1314931834.782059] hello world 1314931834.78
+<span class="anchor" id="line-5-2"></span>[INFO] [WallTime: 1314931835.784853] hello world 1314931835.78
+<span class="anchor" id="line-6-2"></span>[INFO] [WallTime: 1314931836.788106] hello world 1314931836.79</pre><span class="anchor" id="line-52"></span></li></ul><p class="line874">The publisher node is up and running. Now we need a subscriber to receive messages from the publisher.  <span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><p class="line867">
+<h2 id="Running_the_Subscriber">Running the Subscriber</h2>
+<span class="anchor" id="line-55"></span><p class="line874">In the last tutorial we made a subscriber called "listener". Let's run it: <span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span><span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><pre><span class="anchor" id="line-1-6"></span>$ rosrun beginner_tutorials listener     (C++)
+<span class="anchor" id="line-2-5"></span>$ rosrun beginner_tutorials listener.py  (Python) </pre><span class="anchor" id="line-60"></span><p class="line874">You will see something similar to: <span class="anchor" id="line-61"></span><ul><li style="list-style-type:none"><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span><span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><span class="anchor" id="line-69"></span><span class="anchor" id="line-70"></span><pre><span class="anchor" id="line-1-7"></span>[INFO] [WallTime: 1314931969.258941] /listener_17657_1314931968795I heard hello world 1314931969.26
+<span class="anchor" id="line-2-6"></span>[INFO] [WallTime: 1314931970.262246] /listener_17657_1314931968795I heard hello world 1314931970.26
+<span class="anchor" id="line-3-4"></span>[INFO] [WallTime: 1314931971.266348] /listener_17657_1314931968795I heard hello world 1314931971.26
+<span class="anchor" id="line-4-3"></span>[INFO] [WallTime: 1314931972.270429] /listener_17657_1314931968795I heard hello world 1314931972.27
+<span class="anchor" id="line-5-3"></span>[INFO] [WallTime: 1314931973.274382] /listener_17657_1314931968795I heard hello world 1314931973.27
+<span class="anchor" id="line-6-3"></span>[INFO] [WallTime: 1314931974.277694] /listener_17657_1314931968795I heard hello world 1314931974.28
+<span class="anchor" id="line-7-2"></span>[INFO] [WallTime: 1314931975.283708] /listener_17657_1314931968795I heard hello world 1314931975.28</pre><span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span></li></ul><p class="line874">When you are done, press Ctrl-C to terminate both the listener and the talker. <span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><p class="line862">Now that you have examined the simple publisher and subscriber, let's write a simple service and client <a href="/ROS/Tutorials/WritingServiceClient%28python%29">(python)</a> <a href="/ROS/Tutorials/WritingServiceClient%28c%2B%2B%29">(c++)</a>. <span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><p class="line867"><span class="anchor" id="line-77"></span><p class="line867"><span class="anchor" id="line-78"></span><span class="anchor" id="bottom"></span></div></div>
+<div id="pagebottom"></div>
+</div>
+
+<p id="pageinfo" class="info" lang="pl" dir="ltr">Wiki: ROS/Tutorials/ExaminingPublisherSubscriber  (ostatnio edytowane 2017-05-22 22:16:33 przez <span title="ChrisLalancette @ static-71-174-62-76.bstnma.fios.verizon.net[71.174.62.76]"><a class="nonexistent" href="/ChrisLalancette" title="ChrisLalancette @ static-71-174-62-76.bstnma.fios.verizon.net[71.174.62.76]">ChrisLalancette</a></span>)</p>
+
+
+
+
+<div style="margin-top: 9px;" class="footer">
+Except where otherwise noted, the ROS wiki is licensed under the <br /><a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0</a> | <a href="https://plus.google.com/113789706402978299308" rel="publisher">Find us on Google+</a>
+<hr style="margin-top: 10px;">
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+<a href="http://www.osrfoundation.org"><img style="margin-top: -1px;" src="/custom/images/brought_by_horiz.png"></p></a>
+  </div>
+</div>
+</div>
+
+  </div></div> <!-- /#dpage-inner, /#dpage -->
+
+
+</body>
+</html>
+
+��"���           Z���>Ț�       ?    :http://wiki.ros.org/ROS/Tutorials/ExaminingPublisherSubscriber strongly-framed 1 request-method GET request-Cookie KljGrET5R4bCGPDWq7KjEXvVRIE= request-User-Agent Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0 request-Accept-Language pl,en-US;q=0.7,en;q=0.3 response-head HTTP/1.1 200 OK
+Date: Mon, 26 Feb 2018 10:13:30 GMT
+Server: Apache
+Vary: Cookie,User-Agent,Accept-Language
+Content-Type: text/html; charset=utf-8
+ original-response-headers Date: Mon, 26 Feb 2018 10:13:30 GMT
+Server: Apache
+Vary: Cookie,User-Agent,Accept-Language
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=utf-8
+ uncompressed-len 0 predictor::resource-count 14 predictor::http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css 1,1,0,4096 predictor::http://code.jquery.com/jquery-1.11.0.min.js 1,1,0,4096 predictor::http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js 1,1,0,4096 predictor::http://wiki.ros.org/custom/js/sorttable.js 1,1,0,4096 predictor::http://wiki.ros.org/custom/libraries/jquery.min.js 1,1,0,4096 predictor::http://wiki.ros.org/custom/js/seesaw.js 1,1,0,4096 predictor::http://wiki.ros.org/custom/js/rosversion.js 1,1,0,4096 predictor::http://wiki.ros.org/moin_static197/common/js/common.js 1,1,0,4096 predictor::http://wiki.ros.org/moin_static197/rostheme/css/common.css 1,1,0,4096 predictor::http://wiki.ros.org/moin_static197/rostheme/css/screen.css 1,1,0,4096 predictor::http://wiki.ros.org/moin_static197/rostheme/css/print.css 1,1,0,4096 predictor::http://wiki.ros.org/moin_static197/rostheme/css/projection.css 1,1,0,4096 predictor::http://www.google-analytics.com/ga.js 1,0,0,4096 predictor::https://js-agent.newrelic.com/nr-1071.min.js 1,1,0,4096   o	

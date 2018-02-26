@@ -1,0 +1,415 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+
+<meta name="google-site-verification" content="CjkdY6BqKWAVmQ78_iSq6J7ZZ9AoL7-CjFVBYGg9FU4" />
+<link rel="shortcut icon" href="/custom/favicon.ico" type="image/ico" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/custom/js/sorttable.js"></script>
+<script type="text/javascript" src="/custom/libraries/jquery.min.js"></script>                         
+<script type="text/javascript" src="/custom/js/seesaw.js"></script> 
+<script type="text/javascript" src="/custom/js/rosversion.js"></script> 
+<!--script type="text/javascript" src="/custom/libraries/RGraph.common.core.js" ></script Used for metrics only, should be conditional, not at the top-->
+<!--script type="text/javascript" src="/custom/libraries/RGraph.bar.js" ></script same as above -->
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17821189-2']);
+  _gaq.push(['_setDomainName', 'wiki.ros.org']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"><script type="text/javascript">window.NREUM||(NREUM={}),__nr_require=function(e,t,n){function r(n){if(!t[n]){var o=t[n]={exports:{}};e[n][0].call(o.exports,function(t){var o=e[n][1][t];return r(o||t)},o,o.exports)}return t[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(e,t,n){function r(){}function o(e,t,n){return function(){return i(e,[f.now()].concat(u(arguments)),t?null:this,n),t?void 0:this}}var i=e("handle"),a=e(2),u=e(3),c=e("ee").get("tracer"),f=e("loader"),s=NREUM;"undefined"==typeof window.newrelic&&(newrelic=s);var p=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(p,function(e,t){s[t]=o(d+t,!0,"api")}),s.addPageAction=o(d+"addPageAction",!0),s.setCurrentRouteName=o(d+"routeName",!0),t.exports=newrelic,s.interaction=function(){return(new r).get()};var m=r.prototype={createTracer:function(e,t){var n={},r=this,o="function"==typeof t;return i(l+"tracer",[f.now(),e,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return t.apply(this,arguments)}catch(e){throw c.emit("fn-err",[arguments,this,e],n),e}finally{c.emit("fn-end",[f.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(e,t){m[t]=o(l+t)}),newrelic.noticeError=function(e){"string"==typeof e&&(e=new Error(e)),i("err",[e,f.now()])}},{}],2:[function(e,t,n){function r(e,t){var n=[],r="",i=0;for(r in e)o.call(e,r)&&(n[i]=t(r,e[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],3:[function(e,t,n){function r(e,t,n){t||(t=0),"undefined"==typeof n&&(n=e?e.length:0);for(var r=-1,o=n-t||0,i=Array(o<0?0:o);++r<o;)i[r]=e[t+r];return i}t.exports=r},{}],4:[function(e,t,n){t.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(e,t,n){function r(){}function o(e){function t(e){return e&&e instanceof r?e:e?c(e,u,i):i()}function n(n,r,o,i){if(!d.aborted||i){e&&e(n,r,o);for(var a=t(o),u=m(n),c=u.length,f=0;f<c;f++)u[f].apply(a,r);var p=s[y[n]];return p&&p.push([b,n,r,a]),a}}function l(e,t){v[e]=m(e).concat(t)}function m(e){return v[e]||[]}function w(e){return p[e]=p[e]||o(n)}function g(e,t){f(e,function(e,n){t=t||"feature",y[n]=t,t in s||(s[t]=[])})}var v={},y={},b={on:l,emit:n,get:w,listeners:m,context:t,buffer:g,abort:a,aborted:!1};return b}function i(){return new r}function a(){(s.api||s.feature)&&(d.aborted=!0,s=d.backlog={})}var u="nr@context",c=e("gos"),f=e(2),s={},p={},d=t.exports=o();d.backlog=s},{}],gos:[function(e,t,n){function r(e,t,n){if(o.call(e,t))return e[t];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return e[t]=r,r}var o=Object.prototype.hasOwnProperty;t.exports=r},{}],handle:[function(e,t,n){function r(e,t,n,r){o.buffer([e],r),o.emit(e,t,n)}var o=e("ee").get("handle");t.exports=r,r.ee=o},{}],id:[function(e,t,n){function r(e){var t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===window?0:a(e,i,function(){return o++})}var o=1,i="nr@id",a=e("gos");t.exports=r},{}],loader:[function(e,t,n){function r(){if(!x++){var e=h.info=NREUM.info,t=d.getElementsByTagName("script")[0];if(setTimeout(s.abort,3e4),!(e&&e.licenseKey&&e.applicationID&&t))return s.abort();f(y,function(t,n){e[t]||(e[t]=n)}),c("mark",["onload",a()+h.offset],null,"api");var n=d.createElement("script");n.src="https://"+e.agent,t.parentNode.insertBefore(n,t)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()+h.offset],null,"api")}function a(){return E.exists&&performance.now?Math.round(performance.now()):(u=Math.max((new Date).getTime(),u))-h.offset}var u=(new Date).getTime(),c=e("handle"),f=e(2),s=e("ee"),p=window,d=p.document,l="addEventListener",m="attachEvent",w=p.XMLHttpRequest,g=w&&w.prototype;NREUM.o={ST:setTimeout,SI:p.setImmediate,CT:clearTimeout,XHR:w,REQ:p.Request,EV:p.Event,PR:p.Promise,MO:p.MutationObserver};var v=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1071.min.js"},b=w&&g&&g[l]&&!/CriOS/.test(navigator.userAgent),h=t.exports={offset:u,now:a,origin:v,features:{},xhrWrappable:b};e(1),d[l]?(d[l]("DOMContentLoaded",i,!1),p[l]("load",r,!1)):(d[m]("onreadystatechange",o),p[m]("onload",r)),c("mark",["firstbyte",u],null,"api");var x=0,E=e(4)},{}]},{},["loader"]);</script><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","queueTime":0,"licenseKey":"4c8610d177","agent":"","transactionName":"NFZaMEVUV0ZVBkBeCQ0cbRZeGmt6Z0oe","applicationID":"3371695","errorBeacon":"bam.nr-data.net","applicationTime":187}</script>
+<meta name="robots" content="index,nofollow">
+
+<title>ROS/Tutorials/InstallingandConfiguringROSEnvironment - ROS Wiki</title>
+<script type="text/javascript" src="/moin_static197/common/js/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Szukaj";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="/moin_static197/rostheme/css/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="/moin_static197/rostheme/css/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="/moin_static197/rostheme/css/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="/moin_static197/rostheme/css/projection.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="/moin_static197/rostheme/css/msie.css">
+<![endif]-->
+
+
+
+
+<link rel="canonical" href="http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment" />
+
+<link rel="Start" href="/Documentation">
+<link rel="Alternate" title="Język oznaczeń wiki" href="/ROS/Tutorials/InstallingandConfiguringROSEnvironment?action=raw">
+<link rel="Alternate" media="print" title="Podgląd wydruku" href="/ROS/Tutorials/InstallingandConfiguringROSEnvironment?action=print">
+<link rel="Up" href="/ROS/Tutorials">
+<link rel="Search" href="/FindPage">
+<link rel="Index" href="/TitleIndex">
+<link rel="Glossary" href="/WordIndex">
+<link rel="Help" href="/HelpOnFormatting">
+</head>
+
+<body  lang="pl" dir="ltr">
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-5950817-2");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+if(f) f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+if(e) {
+  searchChange(e);
+  searchBlur(e);
+}
+
+function handleSubmit() {
+  var f = document.getElementById('searchform');
+  var t = document.getElementById('searchinput');
+  var r = document.getElementById('real_searchinput');
+
+  //alert("handleSubmit "+ t.value);
+  if(t.value.match(/review/)) {
+    r.value = t.value;
+  } else {
+    //r.value = t.value + " -PackageReviewCategory -StackReviewCategory -M3Review -DocReview -ApiReview -HelpOn -BadContent -LocalSpellingWords";
+    r.value = t.value + " -PackageReviewCategory -StackReviewCategory -DocReview -ApiReview";
+  }
+  //return validate(f);
+}
+//-->
+</script>
+
+<div id="dpage">
+  <div id="dpage-inner">
+    <div id="header"><div id="topnav">
+
+<!-- Alert box -->
+<!-- To enable/disable the alert box, uncomment/comment the block below and update the content below the button. -->
+<!--
+    <div class="alert alert-info alert-dismissable" style="text-align: center;">
+<script>
+jQuery(function( $ ){
+    alert_box_name = 'roswiki_roscon'
+    state = localStorage.getItem(alert_box_name);
+    if (!state) {
+      localStorage.setItem(alert_box_name, 'open');
+    }
+    state = localStorage.getItem(alert_box_name);
+    if (state == 'closed') {
+        $( '#topnav .alert' ).hide();
+    }
+    $( '.close' ).click(function () {
+	console.log('in .close.click');
+        localStorage.setItem(alert_box_name, 'closed');
+        $( '#topnav .alert' ).hide();
+  });
+});
+</script>
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <a href="http://roscon.ros.org">ROSCon 2017</a> will be in Vancouver, September 21-22! <br>
+      The last few years have sold out: register now and take advantage of discounted hotel rates</a>.
+    </div>
+-->
+<!-- End Alert box -->
+
+      <table id="topnav-table">
+        <tr>
+          <td width="300" valign="top"><a href="/"><img border="0" src="/custom/images/ros_org.png" alt="ros.org" width="238" height="51"/></a></td>
+          <td width="500" valign="middle">
+            <a href="http://www.ros.org/about-ros">About</a>
+            |
+            <a href="/Support">Support</a>
+            |
+            <a href="http://discourse.ros.org/">Discussion Forum</a>
+            |
+            <a href="http://status.ros.org/">Service Status</a>
+            |
+            <a href="http://answers.ros.org/">Q&A answers.ros.org</a>
+
+<!--<a href="http://roscon.ros.org/2016/"><img align="middle" style="padding-left: 15px;" src="http://ros.org/images/roscon_wiki_header.jpg" width="133" height="65" alt="ROSCon 2016" /></a>
+-->
+
+<!-- <a href="https://events.osrfoundation.org/ros-kong-2014/"><img align="middle" style="padding-left: 15px;" src="http://ros.org/images/ros_kong_2014_badge.png" width="133" height="38" alt="roskong" /></a>
+-->
+<!--a href="https://events.osrfoundation.org/ros-kong-2014/"><img align="middle" style="padding-left: 15px;" src="http://imgur.com/eMzUJVe.png" width="133" height="38" alt="roskong" /></a-->
+          </td>
+
+          <td valign="middle" align="right">
+
+<script language="Javascript">
+
+function Searchy(theButton){
+
+theForm = theButton.form;
+newID = theForm.input.value;
+theForm.q.value = newID;
+theForm.input.value=theForm.input.value
+
+}
+</script>
+
+
+<form action="http://www.ros.org/search/index.html" id="cse">
+  <div>
+    <label>Search:</label>
+    <input type="hidden" name="cx" value="018259903093183594226:txvzw9fat6w" />
+    <input type="hidden" name="cof" value="FORID:11;NB:1" />
+    <input type="hidden" name="filter" value="0" />
+    <input type="hidden" name="num" value="10" />
+
+    <input type="hidden" name="ie" value="UTF-8" />
+    <input type="text" name="input" id="input" autocomplete="on" style="width: 35%"/>
+    <input type="hidden" name="q" value="" />
+    <input type="submit" name="sa" value="Submit" onClick="Searchy(this)"/>
+
+  </div>
+</form>
+
+         </td>
+      </tr>
+      <tr>
+        <td colspan="3" height="53" width="1024"><nobr><img src="/custom/images/menu_left.png" width="17" height="53" alt=""/><a href="/"><img
+        border="0" src="/custom/images/menu_documentation.png" width="237" height="53" alt="Documentation" /></a><img
+        src="/custom/images/menu_spacer.png" width="69" height="53" /><a href="http://www.ros.org/browse/"><img border="0"
+        src="/custom/images/menu_browse_software.png" width="268" height="53" alt="Browse Software" /></a><img
+        src="/custom/images/menu_spacer.png" width="69" height="53" /><a href="http://www.ros.org/news"><img border="0"
+        src="/custom/images/menu_news.png" width="84" height="53" alt="News" /></a><img
+        src="/custom/images/menu_spacer.png" width="69" height="53" /><a href="/ROS/Installation"><img border="0"
+        src="/custom/images/menu_download.png" width="151" height="53" alt="Download" /></a><img
+        src="/custom/images/menu_right.png" width="60" height="53" /></nobr></td>
+
+      </tr>
+    </table> <!-- topnav-table -->
+
+    </div> <!-- /#topav -->
+  </div> <!-- /#header -->
+
+
+<div id="header2">
+
+<ul id="pagelocation">
+<li><a href="/ROS">ROS</a></li><li><a href="/ROS/Tutorials">Tutorials</a></li><li><a class="backlink" href="/action/fullsearch/ROS/Tutorials/InstallingandConfiguringROSEnvironment?action=fullsearch&amp;context=180&amp;value=linkto%3A%22ROS%2FTutorials%2FInstallingandConfiguringROSEnvironment%22" rel="nofollow" title="Kliknij aby poszukać tytułu metodą pełnotekstową">InstallingandConfiguringROSEnvironment</a></li>
+</ul>
+
+<div id="locationline">
+</div>
+</div>
+
+<div id="sidebar">
+<div class="sidepanel">
+<h1>Wiki</h1>
+
+<ul id="navibar">
+<li class="wikilink"><a href="/Distributions">Distributions</a></li><li class="wikilink"><a href="/ROS/Installation">ROS/Installation</a></li><li class="wikilink"><a href="/ROS/Tutorials">ROS/Tutorials</a></li><li class="wikilink"><a href="/RecentChanges">RecentChanges</a></li><li class="current"><a href="/ROS/Tutorials/InstallingandConfiguringROSEnvironment">Installinga...Environment</a></li>
+</ul>
+
+</div>
+<div class="sidepanel">
+<h1>Strona</h1>
+<ul class="editbar"><li><span class="disabled">Strona statyczna</span></li><li class="toggleCommentsButton" style="display:none;"><a href="#" class="nbcomment" onClick="toggleComments();return false;">Komentarze</a></li><li><a class="nbinfo" href="/action/info/ROS/Tutorials/InstallingandConfiguringROSEnvironment?action=info" rel="nofollow">Info</a></li><li><a class="nbattachments" href="/action/AttachFile/ROS/Tutorials/InstallingandConfiguringROSEnvironment?action=AttachFile" rel="nofollow">Załączniki</a></li><li>
+<form class="actionsmenu" method="GET" action="/ROS/Tutorials/InstallingandConfiguringROSEnvironment">
+<div>
+    <label>Więcej operacji:</label>
+    <select name="action"
+        onchange="if ((this.selectedIndex != 0) &&
+                      (this.options[this.selectedIndex].disabled == false)) {
+                this.form.submit();
+            }
+            this.selectedIndex = 0;">
+        <option value="raw">Tekst surowy</option>
+<option value="print">Podgląd wydruku</option>
+<option value="RenderAsDocbook">Utwórz jako Docbook</option>
+<option value="show" disabled class="disabled">Usuń pamięć podręczną</option>
+<option value="show" disabled class="disabled">------------------------</option>
+<option value="SpellCheck">Sprawdź pisownię</option>
+<option value="LikePages">Podobne strony</option>
+<option value="LocalSiteMap">Lokalna mapa witryny</option>
+<option value="show" disabled class="disabled">------------------------</option>
+<option value="RenamePage" disabled class="disabled">Zmień nazwę strony</option>
+<option value="CopyPage">Kopiuj stronę</option>
+<option value="DeletePage" disabled class="disabled">Usuń stronę</option>
+<option value="show" disabled class="disabled">------------------------</option>
+<option value="MyPages">Moje strony</option>
+<option value="show" disabled class="disabled">Zasubskrybuj Czytelnika</option>
+<option value="show" disabled class="disabled">------------------------</option>
+<option value="show" disabled class="disabled">Usuń spam</option>
+<option value="show" disabled class="disabled">Przywróć do tej wersji</option>
+<option value="PackagePages">Spakuj strony</option>
+<option value="SyncPages">Synchronizuj strony</option>
+<option value="show" disabled class="disabled">------------------------</option>
+<option value="CreatePdfDocument">CreatePdfDocument</option>
+<option value="Load">Wczytaj</option>
+<option value="RawFile">RawFile</option>
+<option value="Save">Zachowaj</option>
+<option value="SlideShow">SlideShow</option>
+    </select>
+    <input type="submit" value="Wykonaj">
+    
+</div>
+<script type="text/javascript">
+<!--// Init menu
+actionsMenuInit('Więcej operacji:');
+//-->
+</script>
+</form>
+</li></ul>
+
+</div>
+<div class="sidepanel">
+<h1>Czytelnik</h1>
+<ul id="username"><li><a href="/action/login/ROS/Tutorials/InstallingandConfiguringROSEnvironment?action=login" id="login" rel="nofollow">Login</a></li></ul>
+</div>
+</div>
+
+<div id="page" lang="en" dir="ltr">
+
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span><span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span><span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span><span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span><span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span><p class="line867"><span class="anchor" id="line-1-1"></span><span class="anchor" id="line-2-1"></span><span class="anchor" id="line-3-1"></span><span class="anchor" id="line-4-1"></span><span class="anchor" id="line-5-1"></span><div><table><tbody><tr>  <td style="background-color: #bbceee"> <img alt="(!)" height="15" src="/moin_static197/rostheme/img/idea.png" title="(!)" width="15" /> Please ask about problems and questions regarding this tutorial on <a class="http" href="http://answers.ros.org">answers.ros.org</a>. Don't forget to include in your question the link to this page, the versions of your OS &amp; ROS, and also add appropriate tags.</td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-6-1"></span><span class="anchor" id="line-7-1"></span><span class="anchor" id="line-8-1"></span>
+<h1 id="Installing_and_Configuring_Your_ROS_Environment">Installing and Configuring Your ROS Environment</h1>
+<span class="anchor" id="line-9-1"></span><strong>Description:</strong> This tutorial walks you through installing ROS and setting up the ROS environment on your computer.<br>
+<br>
+ <span class="anchor" id="line-10-1"></span><span class="anchor" id="line-11-1"></span><span class="anchor" id="line-12-1"></span><span class="anchor" id="line-13-1"></span><strong>Tutorial Level:</strong> BEGINNER<br>
+ <br>
+ <span class="anchor" id="line-14-1"></span><span class="anchor" id="line-15-1"></span><strong>Next Tutorial:</strong>   <a href="/ROS/Tutorials/NavigatingTheFilesystem">Navigating the ROS Filesystem</a> <br>
+ <br>
+  <span class="anchor" id="line-16-1"></span><p class="line874"> <span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><p class="line867"><div class="table-of-contents"><p class="table-of-contents-heading">PomocSpisTreści<ol><li>
+<a href="#Install_ROS">Install ROS</a></li><li>
+<a href="#Managing_Your_Environment">Managing Your Environment</a></li><li>
+<a href="#Create_a_ROS_Workspace">Create a ROS Workspace</a></li></ol></li></ol></div><p class="line874"> <span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><p class="line867">
+<h2 id="Install_ROS">Install ROS</h2>
+<span class="anchor" id="line-28"></span><p class="line862">Before starting these tutorials please complete installation as described in the <a href="/ROS/Installation">ROS installation instructions</a>. <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><p class="line867"><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><div class="blue solid"><span class="anchor" id="line-1-2"></span><p class="line867"><strong>Note:</strong> If you installed ROS from a package manager like <tt class="backtick">apt</tt>, then those packages will not be write accessible and should not be edited by you the user. When working with ROS packages from source or when creating a new ROS package, you should always work in a directory that you have access to, like your home folder. </div><span class="anchor" id="line-33"></span><p class="line867">
+<h2 id="Managing_Your_Environment">Managing Your Environment</h2>
+<span class="anchor" id="line-34"></span><p class="line862">During the installation of ROS, you will see that you are prompted to <tt class="backtick">source</tt> one of several setup.*sh files, or even add this 'sourcing' to your shell startup script. This is required because ROS relies on the notion of combining spaces using the shell environment. This makes developing against different versions of ROS or against different sets of packages easier. <span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><p class="line862">If you are ever having problems finding or using your ROS packages make sure that you have your environment properly setup. A good way to check is to ensure that <a href="/ROS/EnvironmentVariables">environment variables</a> like <a href="/ROS/EnvironmentVariables#ROS_ROOT">ROS_ROOT</a> and <a href="/ROS/EnvironmentVariables#ROS_PACKAGE_PATH">ROS_PACKAGE_PATH</a> are set: <span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><p class="line867"><span class="anchor" id="line-39"></span><span class="anchor" id="line-40"></span><pre><span class="anchor" id="line-1-3"></span>$ printenv | grep ROS</pre><span class="anchor" id="line-41"></span><p class="line874">If they are not then you might need to 'source' some setup.*sh files. <span class="anchor" id="line-42"></span><span class="anchor" id="line-43"></span><p class="line874">Environment setup files are generated for you, but can come from different places: <span class="anchor" id="line-44"></span><span class="anchor" id="line-45"></span><ul><li>ROS packages installed with package managers provide setup.*sh files <span class="anchor" id="line-46"></span></li><li><p class="line891"><a class="http" href="http://www.ros.org/wiki/fuerte/Installation/Overlays">rosbuild workspaces</a> provide setup.*sh files using tools like <a href="/rosws">rosws</a> <span class="anchor" id="line-47"></span></li><li><p class="line862">Setup.*sh files are created as a by-product of <a href="/catkin/workspaces#Building_Packages_with_catkin">building</a> or <a href="/catkin/workspaces#Installing_Packages_with_Catkin">installing</a> catkin packages <span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span></li></ul><p class="line867"><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><div class="blue solid"><span class="anchor" id="line-1-4"></span><p class="line867"><strong>Note:</strong> Throughout the tutorials you will see references to <a href="/rosbuild">rosbuild</a> and <a href="/catkin">catkin</a>. These are the two available methods for organizing and building your ROS code. rosbuild is not recommended or maintained anymore but kept for legacy. catkin is the recommended way to organise your code, it uses more standard CMake conventions and provides more flexibility especially for people wanting to integrate external code bases or who want to release their software. For a full break down visit <a href="/catkin_or_rosbuild">catkin or rosbuild</a>. </div><span class="anchor" id="line-52"></span><p class="line862">If you just installed ROS from <tt class="backtick">apt</tt> on Ubuntu then you will have setup.*sh files in '<tt class="backtick">/opt/ros/&lt;distro&gt;/</tt>', and you could source them like so: <span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><p class="line867"><span class="anchor" id="line-55"></span><span class="anchor" id="line-56"></span><pre><span class="anchor" id="line-1-5"></span>$ source /opt/ros/&lt;distro&gt;/setup.bash</pre><span class="anchor" id="line-57"></span><p class="line862">Using the short name of your ROS distribution instead of <tt>&lt;distro&gt;</tt> <span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span><p class="line874">If you installed ROS Kinetic, that would be: <span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span><p class="line867"><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><pre><span class="anchor" id="line-1-6"></span>$ source /opt/ros/kinetic/setup.bash</pre><span class="anchor" id="line-64"></span><p class="line874">You will need to run this command on every new shell you open to have access to the ROS commands, unless you add this line to your .bashrc. This process allows you to install several ROS distributions (e.g. indigo and kinetic) on the same computer and switch between them. <span class="anchor" id="line-65"></span><span class="anchor" id="line-66"></span><p class="line874">On other platforms you will find these setup.*sh files wherever you installed ROS. <span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span><p class="line867">
+<h2 id="Create_a_ROS_Workspace">Create a ROS Workspace</h2>
+<span class="anchor" id="line-69"></span><p class="line867"><script type="text/javascript">
+<!--
+// @@ Buildsystem macro
+function Buildsystem(sections) {
+    var dotversion = ".buildsystem."
+
+    // Tag shows unless already tagged
+    $.each(sections.show,
+        function() {
+            $("div" + dotversion + this).not(".versionshow,.versionhide").addClass("versionshow")
+        }
+    )
+
+    // Tag hides unless already tagged
+    $.each(sections.hide,
+        function() {
+            $("div" + dotversion + this).not(".versionshow,.versionhide").addClass("versionhide")
+        }
+    )
+
+      // Show or hide according to tag
+      $(".versionshow").removeClass("versionshow").filter("div").show()
+      $(".versionhide").removeClass("versionhide").filter("div").hide()
+}
+
+function getURLParameter(name) {
+    return decodeURIComponent(
+        (
+            new RegExp(
+                '[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)'
+            ).exec(location.search) || [,""]
+        )[1].replace(/\+/g, '%20')
+    ) || null;
+}
+
+$(document).ready(function() {
+    var activesystem = "catkin";
+    var url_distro = getURLParameter('buildsystem');
+    if (url_distro)
+    {
+        activesystem = url_distro;
+    }
+    $("div.buildsystem").not("."+activesystem).hide();
+    $("#"+activesystem).click();
+    $("input.version:hidden").each(function() {
+        var bg = $(this).attr("value").split(":");
+        $("div.version." + bg[0]).css("background-color", bg[1]).removeClass(bg[0])
+    });
+})
+ // -->
+</script>
+<span class="btn-group">
+<button id="catkin" class="btn btn-default" onClick="Buildsystem({show:['catkin'], hide:['rosbuild']});this.style.color='#e6e6e6';this.style.background='#3e4f6e';document.getElementById('rosbuild').style.background='#e6e6e6';document.getElementById('rosbuild').style.color='#3e4f6e';return false"> catkin </button>
+<button id="rosbuild" class="btn btn-default" onClick="Buildsystem({show:['rosbuild'], hide:['catkin']});this.style.color='#e6e6e6';this.style.background='#3e4f6e';document.getElementById('catkin').style.background='#e6e6e6';document.getElementById('catkin').style.color='#3e4f6e';return false"> rosbuild </button>
+</span> <span class="anchor" id="line-70"></span><span class="anchor" id="line-71"></span><p class="line867"><span class="anchor" id="line-72"></span><span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span><span class="anchor" id="line-77"></span><div class="buildsystem catkin"><span class="anchor" id="line-1-7"></span><p class="line867"><span class="anchor" id="line-2-2"></span><span class="anchor" id="line-3-2"></span><div class="blue solid"><span class="anchor" id="line-1-8"></span><p class="line874">These instructions are for ROS Groovy and later. For ROS Fuerte and earlier, select rosbuild. </div><span class="anchor" id="line-4-2"></span><p class="line867"><div dir="ltr" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.content" lang="en"><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.top"></span>
+<span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-1"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-2"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-3"></span><p class="line862">Let's create and build a <a href="/catkin/workspaces">catkin workspace</a>: <span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-4"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-5"></span><p class="line867"><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-6"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-7"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-8"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-9"></span><pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-1-1"></span>$ mkdir -p ~/catkin_ws/src
+<span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-2-1"></span>$ cd ~/catkin_ws/
+<span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-3-1"></span>$ catkin_make</pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-10"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-11"></span><p class="line862">The <a href="/catkin/commands/catkin_make">catkin_make</a> command is a convenience tool for working with <a href="/catkin/workspaces">catkin workspaces</a>. Running it the first time in your workspace, it will create a <tt class="backtick">CMakeLists.txt</tt> link in your 'src' folder. Additionally, if you look in your current directory you should now have a 'build' and 'devel' folder. Inside the 'devel' folder you can see that there are now several setup.*sh files. Sourcing any of these files will overlay this workspace on top of your environment. To understand more about this see the general catkin documentation: <a href="/catkin">catkin</a>. Before continuing source your new setup.*sh file: <span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-12"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-13"></span><p class="line867"><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-14"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-15"></span><pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-1-2"></span>$ source devel/setup.bash</pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-16"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-17"></span><p class="line862">To make sure your workspace is properly overlayed by the setup script, make sure <tt class="backtick">ROS_PACKAGE_PATH</tt> environment variable includes the directory you're in. <span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-18"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-19"></span><p class="line867"><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-20"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-21"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-22"></span><pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-1-3"></span>$ echo $ROS_PACKAGE_PATH
+<span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-2-2"></span>/home/youruser/catkin_ws/src:/opt/ros/kinetic/share</pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.line-23"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-catkin.2BAC8-CreateWorkspace.bottom"></span></div> </div><span class="anchor" id="line-78"></span><p class="line867"><span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span><div class="buildsystem rosbuild"><span class="anchor" id="line-1-9"></span><p class="line867"><div dir="ltr" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.content" lang="en"><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.top"></span>
+<span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-1"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-2"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-3"></span><p class="line874">When working with ROS source code, it is often useful to do so in a "workspace". For the following ROS tutorials you will need an area for working on tutorials and creating new ROS stacks and packages. <span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-4"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-5"></span><p class="line867"><a href="/rosws">rosws</a> is a tool that provides a uniform interface to various version control systems  such as SVN, Git and Mercurial and for managing all packages installed in a ROS overlay. An extensive tutorial on rosws can be found <a class="http" href="http://www.ros.org/doc/api/rosinstall/html/rosws_tutorial.html">here</a>. <span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-6"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-7"></span><p class="line867">
+<h3 id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.Creating_a_new_workspace">Creating a new workspace</h3>
+<span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-8"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-9"></span><p class="line862">The following command creates a new workspace in <tt class="backtick">~/fuerte_workspace</tt> which extends the set of packages installed in /opt/ros/fuerte: <span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-10"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-11"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-12"></span><pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-1-1"></span>rosws init ~/fuerte_workspace /opt/ros/fuerte</pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-13"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-14"></span><p class="line867"><strong>Note:</strong> rosws is part of the <a href="/rosinstall">rosinstall package</a>, which is not installed by default. The following command downloads it using the Ubuntu package manager: <span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-15"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-16"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-17"></span><pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-1-2"></span>sudo apt-get install python-rosinstall</pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-18"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-19"></span><p class="line867">
+<h3 id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.Creating_a_sandbox_directory_for_new_packages">Creating a sandbox directory for new packages</h3>
+<span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-20"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-21"></span><p class="line862">New packages need to be put in a path that is in the variable <tt class="backtick">ROS_PACKAGE_PATH</tt>. All directories that are managed by rosws, i.e. that have been added using rosws are automatically added to the <tt class="backtick">ROS_PACKAGE_PATH</tt> when the file <tt class="backtick">setup.bash</tt> of the corresponding workspace is sourced. Although new packages should always be put in repositories that have been installed using rosws, it can be very convenient to have a sandbox directory where for instance packages created during the tutorials can be put without requiring any additional rosws commands. For that we create a new directory sandbox and add it to the hidden <tt class="backtick">.rosinstall</tt> file with rosws: <span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-22"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-23"></span><p class="line867"><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-24"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-25"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-26"></span><pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-1-3"></span>mkdir ~/fuerte_workspace/sandbox
+<span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-2-1"></span>rosws set ~/fuerte_workspace/sandbox</pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-27"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-28"></span><p class="line862">Every time the entries in the workspace change, it is necessary to re-source <tt class="backtick">~/fuerte_workspace/setup.bash</tt> to make sure that the updated <tt class="backtick">ROS_PACKAGE_PATH</tt> is used. <span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-29"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-30"></span><p class="line867"><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-31"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-32"></span><pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-1-4"></span>source ~/fuerte_workspace/setup.bash</pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-33"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-34"></span><p class="line862">It is very common to replace the line <tt class="backtick">source&nbsp;/opt/ros/fuerte/setup.bash</tt> to source the setup.bash in <tt class="backtick">~/fuerte_workspace</tt> or whichever workspace you use most often. <span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-35"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-36"></span><p class="line862">A more complete ROS Workspace tutorial can be found <a href="/fuerte/Installation/Overlays">here</a>. <span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-37"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-38"></span><p class="line867">
+<h3 id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.Confirmation">Confirmation</h3>
+<span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-39"></span><p class="line874">To confirm that your package path has been set, echo the ROS_PACKAGE_PATH variable. <span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-40"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-41"></span><p class="line867"><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-42"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-43"></span><pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-1-5"></span>$ echo $ROS_PACKAGE_PATH</pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-44"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-45"></span><p class="line874">You should see something similar to: <span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-46"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-47"></span><p class="line867"><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-48"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-49"></span><pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-1-6"></span>/home/your_user_name/fuerte_workspace/sandbox:/opt/ros/fuerte/share:/opt/ros/fuerte/stacks</pre><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.line-50"></span><span class="anchor" id="ROS.2BAC8-Tutorials.2BAC8-rosbuild.2BAC8-CreateWorkspace.bottom"></span></div> </div><span class="anchor" id="line-81"></span><p class="line862">Now that your environment is setup, continue with the <a href="/ROS/Tutorials/NavigatingTheFilesystem">ROS file system tutorial</a>. <span class="anchor" id="line-82"></span><span class="anchor" id="line-83"></span><p class="line867"><span class="anchor" id="line-84"></span><p class="line867"><span class="anchor" id="line-85"></span><p class="line867"><span class="anchor" id="line-86"></span><span class="anchor" id="bottom"></span></div></div>
+<div id="pagebottom"></div>
+</div>
+
+<p id="pageinfo" class="info" lang="pl" dir="ltr">Wiki: ROS/Tutorials/InstallingandConfiguringROSEnvironment  (ostatnio edytowane 2017-05-22 23:24:18 przez <span title="Marguedas @ 70-35-50-58.static.wiline.com[70.35.50.58]"><a class="nonexistent" href="/Marguedas" title="Marguedas @ 70-35-50-58.static.wiline.com[70.35.50.58]">Marguedas</a></span>)</p>
+
+
+
+
+<div style="margin-top: 9px;" class="footer">
+Except where otherwise noted, the ROS wiki is licensed under the <br /><a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0</a> | <a href="https://plus.google.com/113789706402978299308" rel="publisher">Find us on Google+</a>
+<hr style="margin-top: 10px;">
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+<a href="http://www.osrfoundation.org"><img style="margin-top: -1px;" src="/custom/images/brought_by_horiz.png"></p></a>
+  </div>
+</div>
+</div>
+
+  </div></div> <!-- /#dpage-inner, /#dpage -->
+
+
+</body>
+</html>
+
+p�U{��           Z��>ȡ{       I    :http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment strongly-framed 1 request-method GET request-Cookie vcBeple5UR9vOwmiC5U8IyYQwUA= request-User-Agent Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0 request-Accept-Language pl,en-US;q=0.7,en;q=0.3 response-head HTTP/1.1 200 OK
+Date: Mon, 26 Feb 2018 10:55:25 GMT
+Server: Apache
+Vary: Cookie,User-Agent,Accept-Language
+Content-Type: text/html; charset=utf-8
+ original-response-headers Date: Mon, 26 Feb 2018 10:55:25 GMT
+Server: Apache
+Vary: Cookie,User-Agent,Accept-Language
+Keep-Alive: timeout=5, max=99
+Connection: Keep-Alive
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=utf-8
+ uncompressed-len 0 predictor::resource-count 14 predictor::http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css 1,1,0,4096 predictor::http://code.jquery.com/jquery-1.11.0.min.js 1,1,0,4096 predictor::http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js 1,1,0,4096 predictor::http://wiki.ros.org/custom/js/sorttable.js 1,1,0,4096 predictor::http://wiki.ros.org/custom/libraries/jquery.min.js 1,1,0,4096 predictor::http://wiki.ros.org/custom/js/seesaw.js 1,1,0,4096 predictor::http://wiki.ros.org/custom/js/rosversion.js 1,1,0,4096 predictor::http://wiki.ros.org/moin_static197/common/js/common.js 1,1,0,4096 predictor::http://wiki.ros.org/moin_static197/rostheme/css/common.css 1,1,0,4096 predictor::http://wiki.ros.org/moin_static197/rostheme/css/screen.css 1,1,0,4096 predictor::http://wiki.ros.org/moin_static197/rostheme/css/print.css 1,1,0,4096 predictor::http://wiki.ros.org/moin_static197/rostheme/css/projection.css 1,1,0,4096 predictor::http://www.google-analytics.com/ga.js 1,0,0,4096 predictor::https://js-agent.newrelic.com/nr-1071.min.js 1,1,0,4096   ��

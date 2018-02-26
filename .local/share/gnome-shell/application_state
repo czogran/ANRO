@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<application-state>
+  <context id="">
+    <application id="yelp.desktop" open-window-count="0" score="5" last-seen="1519139244"/>
+    <application id="firefox.desktop" open-window-count="1" score="299" last-seen="1519643364"/>
+    <application id="gedit.desktop" open-window-count="0" score="0" last-seen="0"/>
+    <application id="org.gnome.Nautilus.desktop" open-window-count="1" score="31" last-seen="1519643514"/>
+    <application id="qtcreator.desktop" open-window-count="0" score="2" last-seen="1519642407"/>
+    <application id="org.gnome.gedit.desktop" open-window-count="1" score="192" last-seen="1519642909"/>
+    <application id="gnome-terminal.desktop" open-window-count="7" score="421" last-seen="1519643502"/>
+  </context>
+</application-state>

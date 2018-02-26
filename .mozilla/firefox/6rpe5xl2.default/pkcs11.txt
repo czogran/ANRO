@@ -1,0 +1,5 @@
+library=
+name=NSS Internal PKCS #11 Module
+parameters=configdir='sql:/home/prawicki/.mozilla/firefox/6rpe5xl2.default' certPrefix='' keyPrefix='' secmod='secmod.db' flags=optimizeSpace updatedir='' updateCertPrefix='' updateKeyPrefix='' updateid='' updateTokenDescription=''  manufacturerID='Mozilla.org' libraryDescription='Wewnętrzne usługi szyfrujące' cryptoTokenDescription='Standardowe usługi szyfrujące' dbTokenDescription='Urządzenie zabezpieczające' cryptoSlotDescription='Wewnętrzne usługi szyfrujące' dbSlotDescription='Klucze prywatne PSM' FIPSSlotDescription='Usługi kryptograficzne, kluczy i certyfikatów FIPS 140' FIPSTokenDescription='Programowe urządz. zabezp. FIPS' minPS=0
+NSS=Flags=internal,critical trustOrder=75 cipherOrder=100 slotParams=(1={slotFlags=[RSA,DSA,DH,RC2,RC4,DES,RANDOM,SHA1,MD5,MD2,SSL,TLS,AES,Camellia,SEED,SHA256,SHA512] askpw=any timeout=30})
+
