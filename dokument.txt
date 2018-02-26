@@ -30,3 +30,5 @@ wywołujemy go, by uruchomić żółwia
 
 
 	CmakeLists.txt
+	
+	package.xml
