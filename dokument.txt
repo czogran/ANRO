@@ -1,0 +1,32 @@
+﻿	DOKUMENTACJA ANRO LAB1
+Uruchamianie:
+1.ustawiamy source na:
+$ source /opt/ros/kinetic/setup.bash
+
+2. włączamy roslauncha
+3. wchodzimy do katalogu lab1
+4. uruchamiamy catkin_make
+5.ustawiamy source ./devel/setup.bash
+6. włączamy zolwia poleceniem:
+roslaunch turtle launch.launch
+
+
+sterowanie
+w→ do przodu
+s→ do tyłu
+a→ skręt w lewo
+d→skręt w prawo
+
+
+
+Używamy plików
+launch.launch
+wywołujemy go, by uruchomić żółwia
+	
+	zolw.cpp
+	sluży do sterowanie żółwiem 
+	źródło funkcji do wczytywania klawiszy:
+		https://stackoverflow.com/questions/421860/capture-characters-from-standard-input-		without-waiting-for-enter-to-be-pressed
+
+
+	CmakeLists.txt
