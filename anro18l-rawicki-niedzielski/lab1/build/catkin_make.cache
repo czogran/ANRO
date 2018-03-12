@@ -1,2 +1,0 @@
-turtle
--DCATKIN_DEVEL_PREFIX=/home/prawicki/lab1/devel -DCMAKE_INSTALL_PREFIX=/home/prawicki/lab1/install -G Unix Makefiles
