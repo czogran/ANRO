@@ -1,0 +1,8 @@
+prefix=/media/pablo/linuks2/Ucze sie/lab2/devel
+
+Name: gazebo_tutorials
+Description: Description of gazebo_tutorials
+Version: 0.0.0
+Cflags: 
+Libs: -L/media/pablo/linuks2/Ucze sie/lab2/devel/lib -lgazebo_tutorials
+Requires: roscpp gazebo_ros

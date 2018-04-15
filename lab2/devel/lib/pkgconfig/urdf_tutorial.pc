@@ -1,0 +1,8 @@
+prefix=/media/pablo/linuks2/Ucze sie/lab2/devel
+
+Name: urdf_tutorial
+Description: Description of urdf_tutorial
+Version: 0.3.0
+Cflags: 
+Libs: -L/media/pablo/linuks2/Ucze sie/lab2/devel/lib 
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/media/pablo/linuks2/Ucze_sie/lab2/devel
+
+Name: ramie
+Description: Description of ramie
+Version: 0.0.0
+Cflags: 
+Libs: -L/media/pablo/linuks2/Ucze_sie/lab2/devel/lib 
+Requires: 

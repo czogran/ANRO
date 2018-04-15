@@ -1,0 +1,2 @@
+ramie
+-DCATKIN_DEVEL_PREFIX=/media/pablo/linuks2/Ucze_sie/lab2/devel -DCMAKE_INSTALL_PREFIX=/media/pablo/linuks2/Ucze_sie/lab2/install -G Unix Makefiles
