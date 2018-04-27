@@ -11,7 +11,7 @@
 #include "geometry_msgs/Pose.h"
 #include "geometry_msgs/Point.h"
 
-
+//testy, same smieci
  
 float x,y,z;
  geometry_msgs::PoseStamped position_to_rviz;

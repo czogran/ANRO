@@ -2,7 +2,7 @@
 
   <arg name="model" default="$(find ramie)/urdf/elegancki.urdf"/>
   <arg name="gui" default="true" />
-  <arg name="rvizconfig" default="$(find ramie)/rviz/kdl.rviz" />
+  <arg name="rvizconfig" default="$(find ramie)/rviz/both.rviz" />
 
   <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
   <param name="use_gui" value="$(arg gui)"/>
@@ -19,13 +19,14 @@
 	<!--<remap from="tf" to="to_rviz"/> -->
   </node>
 
+ <node pkg="ramie" name="NONKDL_DKIN" type="non" />
+
  <node pkg="ramie" name="KDL_DKIN" type="kdl" />
 
         <param name="l1" value="0.6" />
 	<param name="l2" value="0.6" />
 	<param name="h_base" value="0.6" />
 	<param name="h_griper" value="0.2"/>
-	<param name="h_box" value="0.2"/>
 
 
 </launch>

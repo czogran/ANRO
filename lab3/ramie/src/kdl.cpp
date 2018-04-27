@@ -15,8 +15,10 @@
 
 ros::Publisher chatter_pub; 
 //geometry_msgs::PoseStamped position_to_rviz;
-double h_base,l1,l2,h_griper;
+double h_base,l1,l2,h_griper,h_box;
+
 using namespace KDL;
+
 void jointCallback(const sensor_msgs::JointState & msg)
 {
   geometry_msgs::Point point;
@@ -28,16 +30,16 @@ void jointCallback(const sensor_msgs::JointState & msg)
 
  Segment s0 =Segment(Joint(Joint::RotZ),
                 Frame(Rotation::RPY(0.0,0.0,0),
-                          Vector(0.0,0.0,0.0) )
+                          Vector(l1,0.0,0.0) )
                     );
 
  Segment s1 =Segment(Joint(Joint::RotZ),
                 Frame(Rotation::RPY(0.0,0.0,0),
-                          Vector(0.6,0.0,0.0) )
+                          Vector(l2,0.0,0.0) )
                     );
 Segment s2 =Segment(Joint(Joint::TransZ),
                 Frame(Rotation::RPY(0.0,0.0,0.0),
-                          Vector(0.6,0.0,0.2) )
+                          Vector(0.0,0.0,(h_box+h_base)/2-h_griper) )
                     );
 
 
@@ -93,8 +95,9 @@ n.param<double>("l1",l1,0.6);
  n.param<double>("l2",l2,0.6);
  n.param<double>("h_base",h_base,0.6);
  n.param<double>("h_griper",h_griper,0.2);
+ n.param<double>("h_box",h_box,0.2);
 
- chatter_pub = n.advertise<geometry_msgs::PoseStamped>("to_rviz", 1000);
+ chatter_pub = n.advertise<geometry_msgs::PoseStamped>("to_rviz_kdl", 1000);
  ros::Subscriber sub = n.subscribe("joint_states", 1000, jointCallback);
 
 
@@ -109,7 +112,11 @@ n.param<double>("l1",l1,0.6);
 
 
 
+//https://github.com/orocos/orocos_kinematics_dynamics/blob/master/orocos_kdl/src/chainfksolvervel_recursive.hpp
 
+//http://www.orocos.org/kdl-chains
+
+//https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
 
 /*
 
