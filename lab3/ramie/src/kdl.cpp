@@ -38,7 +38,7 @@ void jointCallback(const sensor_msgs::JointState & msg)
                           Vector(l2,0.0,0.0) )
                     );
 Segment s2 =Segment(Joint(Joint::TransZ),
-                Frame(Rotation::RPY(0.0,0.0,0.0),
+                Frame(Rotation::RPY(3.14,0.0,0.0),
                           Vector(0.0,0.0,(h_box+h_base)/2-h_griper) )
                     );
 
@@ -55,11 +55,12 @@ ChainFkSolverPos_recursive fksolver(chain1);
 JntArray q(3);//(chain1.getNrOfJoints());
 q(0)=msg.position[0];
 q(1)=msg.position[1];
-q(2)=msg.position[2];
+q(2)=-msg.position[2];
 
 Frame F_result;
 fksolver.JntToCart(q,F_result);
 //q=...
+
 
 //fksolver.JntToCart(q,F_result,segment_nr);
 
@@ -79,8 +80,17 @@ position_to_rviz.header.frame_id="base_link";
 	position_to_rviz.pose.orientation.z=z;
 	position_to_rviz.pose.orientation.w=w; 
 
+if(q(0)<0.5&&q(0)>-0.5&&q(1)<0.5&&q(1)>-0.5&&q(2)<0.099&&q(2)>-0.099){
+chatter_pub.publish(position_to_rviz);
+}else
+{
+ROS_INFO("Uwaga, przekroczono dopuszczalny zakres ruchu kdl!\n");
+}
+ 
 
- chatter_pub.publish(position_to_rviz);
+
+
+
 }
 
 using namespace std;

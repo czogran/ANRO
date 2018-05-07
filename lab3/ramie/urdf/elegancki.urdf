@@ -73,7 +73,7 @@
       <geometry>
         <box size="0.1 0.1 0.2"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 -0.1"/>
+      <origin rpy="0 0 3.14" xyz="0 0 -0.1"/>
       <material name="white"/>
     </visual>
   </link>
@@ -112,7 +112,7 @@
  <parent link="box2"/><child link="gripper"/>
    <limit effort="1000.0" lower="-0.1" upper="0.1" velocity="0.5"/>
  <axis xyz ="0 0 1"/>
- <origin xyz="0.55 0 0"/>
+ <origin xyz="0.55 0 -0.2" rpy="3.14 0 0"/>
 </joint>
 
 

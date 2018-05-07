@@ -4,7 +4,7 @@
 #include <sensor_msgs/JointState.h>
 #include <visualization_msgs/Marker.h>
 #include <math.h>
-
+#include <ros/console.h>
 
 /*
 Quaterniond toQuaternion(double pitch, double roll, double yaw)
@@ -32,13 +32,14 @@ double h_base,l1,l2,h_griper,h_box;
 
 void jointCallback(const sensor_msgs::JointState & msg)
 {
+//ROS_INFO("Uwaga, przekroczono dopuszczalny zakres ruchu pierwszego czlonu!\n");
   geometry_msgs::Point point;
   geometry_msgs::Pose pose;
   geometry_msgs::PoseStamped position_to_rviz;
  	 
- 	double roll=0;//msg.position[0]+msg.position[1];
+ 	double roll=3.14;//msg.position[0]+msg.position[1];
 	double pitch=0;//+msg.position[1];;
-	double yaw=msg.position[0]+msg.position[1];;//msg.position[2];
+	double yaw=msg.position[0]+msg.position[1];//msg.position[2];
 
 	double cy = cos(yaw * 0.5);
 	double sy = sin(yaw * 0.5);
@@ -61,11 +62,15 @@ void jointCallback(const sensor_msgs::JointState & msg)
 
  pose.position=point;
 
+//double ogr1=ogr2=0.5;
+if(point.x<0.5&&point.x>-0.5&&point.y<0.5&&point.y>-0.5){
+
+
  //position_to_rviz.pose.position.x=msg.position[0];
  //position_to_rviz.pose.position.y=msg.position[1];
  position_to_rviz.pose.position.x=(l1*cos(point.x)+l2*cos(point.x+point.y));
  position_to_rviz.pose.position.y=(l1*sin(point.x)+l2*sin(point.x+point.y));
- position_to_rviz.pose.position.z=msg.position[2]+h_base-2*h_griper;
+ position_to_rviz.pose.position.z=-msg.position[2]+h_base-2*h_griper;
 
 
 
@@ -79,6 +84,13 @@ void jointCallback(const sensor_msgs::JointState & msg)
  //position_to_rviz.header.stamp =ros::Time::now();
  //position_to_rviz.pose=pose;
  chatter_pub.publish(position_to_rviz);
+}else
+{
+
+ROS_INFO("Uwaga, przekroczono dopuszczalny zakres ruchu nonkdl!\n");
+
+ROS_DEBUG("tekstss");
+}
 }
 
 using namespace std;

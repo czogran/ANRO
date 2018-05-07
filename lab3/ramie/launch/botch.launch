@@ -19,9 +19,9 @@
 	<!--<remap from="tf" to="to_rviz"/> -->
   </node>
 
- <node pkg="ramie" name="NONKDL_DKIN" type="non" />
+ <node pkg="ramie" name="NONKDL_DKIN" type="non" output="screen"/>
 
- <node pkg="ramie" name="KDL_DKIN" type="kdl" />
+ <node pkg="ramie" name="KDL_DKIN" type="kdl" output="screen"/>
 
         <param name="l1" value="0.6" />
 	<param name="l2" value="0.6" />
