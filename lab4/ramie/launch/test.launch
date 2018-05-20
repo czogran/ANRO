@@ -1,0 +1,19 @@
+<launch>
+
+ 
+
+
+
+
+ 
+<node pkg="ramie" name="jint" type="jint" output="screen"/>
+<node pkg="ramie" name="control" type="control" output="screen"/> 
+
+
+        <param name="l1" value="0.6" />
+	<param name="l2" value="0.6" />
+	<param name="h_base" value="0.6" />
+	<param name="h_griper" value="0.2"/>
+
+
+</launch>

@@ -1,0 +1,13 @@
+<launch>
+
+  
+    <arg name="model" default="$(find ramie)/urdf/elegancki.urdf"/>
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+ <arg name="rvizconfig" default="$(find ramie)/launch/test.launch" />
+
+
+
+  
+ 
+</launch>

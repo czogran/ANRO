@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+
+
+
+
+
+<robot name="ramie" xmlns:xacro="http://ros.org/wiki/xacro">
+
+
+    <xacro:property name="base_radius" value="$(arg base_radius)"/>
+    <xacro:property name="base_length" value="$(arg base_length)"/>
+    <xacro:property name="box_length" value="$(arg box_length)"/>
+    <xacro:property name="box_width" value="$(arg box_width)"/>
+    <xacro:property name="box_deep" value="$(arg box_deep)"/>
+    <xacro:property name="griper_length" value="$(arg griper_length)"/>
+    <xacro:property name="griper_deep" value="$(arg griper_deep)"/>
+    <xacro:property name="griper_width" value="$(arg griper_width)"/>
+
+
+<material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+
+  
+
+
+<link name="base_link">
+    <visual>
+      <geometry>
+        <cylinder length="${base_radius}" radius="${base_radius}"/>
+      </geometry>
+    </visual>
+  </link>
+
+<link name="joint1">
+    <visual>
+      <geometry>
+        <cylinder length="${box_deep}" radius="${box_width}"/>
+      </geometry>
+	
+       <material name="blue"/>
+    </visual>
+  </link>
+
+<link name="box1">
+    <visual>
+      <geometry>
+        <box size="${box_length} ${box_width} ${box_deep}"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="${box_length}/2 0 0"/>
+       <material name="blue"/>
+    </visual>
+  </link>
+
+
+<link name="joint2">
+    <visual>
+      <geometry>
+        <cylinder length="${box_deep}" radius="${box_length}"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+
+<link name="box2">
+    <visual>
+      <geometry>
+        <box size="${box_length} ${box_width} ${box_length}"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="${box_length}/2 0 0"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+<link name="gripper">
+    <visual>
+      <geometry>
+        <box size="${griper_length} ${griper_width} ${griper_deep}"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 -${griper_deep}/2"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+<joint name="base_to_joint1" type="revolute">
+    <parent link="base_link"/>
+    <child link="joint1"/>
+    <limit effort="1000.0" lower="-1" upper="1" velocity="0.5"/>
+    <axis xyz ="0 0 1"/>
+    <origin xyz="0 0 (${base_length}+${box_deep}/)2"/>
+  </joint>
+
+<joint name="joint1_to_box1" type="fixed">
+ <parent link="joint1"/><child link="box1"/>
+ <axis xyz ="0 0 1"/>
+ <origin xyz="0 0 0"/>
+</joint>
+
+
+  <joint name="box1_to_joint2" type="revolute">
+    <parent link="box1"/>
+    <child link="joint2"/>
+    <limit effort="1000.0" lower="-1" upper="1" velocity="0.5"/>
+    <axis xyz ="0 0 1"/>
+    <origin xyz="${griper_length} 0 0"/>
+  </joint>
+
+<joint name="joint2_to_box2" type="fixed">
+ <parent link="joint2"/><child link="box2"/>
+
+ <axis xyz ="0 0 1"/>
+ <origin xyz="0 0 0"/>
+</joint>
+
+<joint name="box2_to_gripper_prismatic" type="prismatic">
+ <parent link="box2"/><child link="gripper"/>
+   <limit effort="1000.0" lower="-0.1" upper="0.1" velocity="0.5"/>
+ <axis xyz ="0 0 1"/>
+ <origin xyz="(${box_length}-${griper_length}/2) 0 0"/>
+</joint>
+
+
+
+
+</robot>

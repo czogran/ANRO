@@ -1,0 +1,32 @@
+<launch>
+
+  <arg name="model" default="$(find ramie)/urdf/elegancki.urdf"/>
+  <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find ramie)/rviz/both.rviz" />
+
+  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
+  <param name="use_gui" value="$(arg gui)"/>
+
+
+ 
+
+
+
+
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true"/>
+
+<node pkg="ramie" name="jint" type="jint" output="screen"/>
+<node pkg="ramie" name="control" type="control" output="screen"/> 
+
+
+
+
+        <param name="l1" value="0.6" />
+	<param name="l2" value="0.6" />
+	<param name="h_base" value="0.6" />
+	<param name="h_griper" value="0.2"/>
+
+
+</launch>
