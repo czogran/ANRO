@@ -119,7 +119,7 @@ else if(kierunek ==time_down){
 	}
 
  else{
-//std::cin>>srv.request.type;
+std::cin>>srv.request.type;
 
   srv.request.x = x;
   srv.request.y =y;

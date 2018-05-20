@@ -15,9 +15,16 @@ ros::Publisher pose_pub;
 bool add(ramie::ointservice::Request &req,
         ramie::ointservice::Response &res)
 {
- 
-line(req.x,req.y,req.z,req.roll,req.yaw,req.pitch,req.time);
- res.status = "aaa";
+res.status = "OK";
+ if(req.type=="line")
+	line(req.x,req.y,req.z,req.roll,req.yaw,req.pitch,req.time);
+ else if(req.type=="poly")
+	poly(req.x,req.y,req.z,req.roll,req.yaw,req.pitch,req.time); 
+else if(req.type=="spline")
+	spline(req.x,req.y,req.z,req.roll,req.yaw,req.pitch,req.time); 
+else
+res.status = "zla interpoacja";
+
 
   ROS_INFO("request: x=%f, y=%f", req.x, req.time);
  
