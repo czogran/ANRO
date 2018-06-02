@@ -16,7 +16,10 @@
 
 
  float param_a,param_b,param_c;
- float position_x,position_y, position_z;
+ float px,py,pz;
+ float position_x=1;
+ float position_y=1;
+ float position_z=0.2;
  int steps;
  float alfa;
  float beta;
@@ -54,7 +57,14 @@ if(req.type=="elipse")
 	alfa=-pi/2;
 	beta=-pi; 
 		gama=-0.0;
-	for(int a=0;a<3;a++)
+	px=position_x;
+	py=position_y;
+	pz=position_z;
+	position_x=param_a*cos(beta);//*cos(alfa);
+			position_y=param_b*sin(beta);//*sin(alfa);
+			position_z=0.2+param_c*sin(gama);
+	poly_inverse(position_x,position_y,position_z,0,0,0,px,py,pz,100);
+	for(int a=0;a<1;a++)
 	{
 		for (int i=0;i<steps;i++)
 		 {
@@ -82,14 +92,14 @@ if(req.type=="elipse")
 }
 else if(req.type=="square")
 {
-	alfa=-0.5;
-	beta=-0.5;
-	gama=0.1;
-
-		param_a=req.a;
-		param_b=req.b;
-		param_c=req.c;
-	for(int a=0;a<3;a++)
+	alfa=req.x;//-0.5;
+	beta=req.y;//-0.5;
+	gama=req.z;//0.1;
+	poly_inverse(alfa,beta,gama,0,0,0,position_x,position_y,position_z,100);
+		param_a=req.a*4;
+		param_b=req.b*4;
+		param_c=req.c*4;
+	for(int a=0;a<1;a++)
 	{
 		for (int i=0;i<steps;i++)
 		 {
@@ -130,7 +140,7 @@ else if(req.type=="square")
 	
 		}
 }
-	res.status="OK";
+	//res.status="OK";
   return true;
 }
 

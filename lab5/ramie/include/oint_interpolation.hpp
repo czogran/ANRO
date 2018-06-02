@@ -179,7 +179,8 @@ void spline(float x ,float y,float z,float roll, float yaw, float pitch,float ti
    
  float a1,a2,a3;
  float v1,v2,v3;
- 
+
+	
   geometry_msgs::PoseStamped position_to_rviz;
   geometry_msgs::Quaternion quat;
   
@@ -342,6 +343,92 @@ geometry_msgs::PoseStamped pose_point(float x, float y, float z)
  position_to_rviz.pose.orientation.w=cy * cr * cp + sy * sr * sp;//(l1+l2);
 
 return position_to_rviz;
+}
+
+
+
+
+
+
+
+
+void poly_inverse(float x ,float y,float z,float roll, float yaw, float pitch,float px,float py, float pz,float time)
+{
+   
+ float v1_a,v2_a,vg_a;
+ float v1_b,v2_b,vg_b;
+prev_x=px;
+prev_y=py;
+prev_z=pz;
+ 
+  geometry_msgs::PoseStamped position_to_rviz;
+  geometry_msgs::Quaternion quat;
+  
+ nav_msgs::Path path;
+ path.header.frame_id="base_link";
+   
+ ros::NodeHandle n;
+ ros::Publisher pose_pub = n.advertise<geometry_msgs::PoseStamped>("pose", 400);
+  ros::Publisher path_pub = n.advertise<nav_msgs::Path>("path", 400);
+ ros::Rate loop_rate(1000);
+
+	v1_b=6*(x-prev_x)/time/time;
+	v2_b=6*(y-prev_y)/time/time;	
+	vg_b=6*(z-prev_z)/time/time;
+	v1_a=-v1_b/time;
+	v2_a=-v2_b/time;	
+	vg_a=-vg_b/time;
+float vroll_b=6*(-prev_roll+roll)/time/time;
+float vyaw_b=6*(-prev_yaw+yaw)/time/time;
+float vpitch_b=6*(-prev_pitch+pitch)/time/time;
+float vroll_a=-vroll_b/time;
+float vyaw_a=-vyaw_b/time;
+float vpitch_a=-vpitch_b/time;
+float vr,vy,vp;
+Rotation r3;
+
+for (float t=0; t<=time;t+=0.01)
+{
+	path.header.stamp=ros::Time::now();
+ 	position_to_rviz.header.stamp=ros::Time::now();
+ 
+	
+
+	vr=vroll_a*t*t*t/3+vroll_b*t*t/2+prev_roll;
+	vy=vyaw_a*t*t*t/3+vyaw_b*t*t/2+prev_yaw;
+	vp=vpitch_a*t*t*t/3+vpitch_b*t*t/2+prev_pitch;	
+	r3 = Rotation::RPY(vr,vy,vp);
+	Frame F_result(r3);
+
+	position_to_rviz.pose.position.x=v1_a*t*t*t/3+v1_b*t*t/2+prev_x;
+	position_to_rviz.pose.position.y=v2_a*t*t*t/3+v2_b*t*t/2+prev_y;
+	position_to_rviz.pose.position.z=vg_a*t*t*t/3+vg_b*t*t/2+prev_z;
+
+	double x, y, z, w;
+	F_result.M.GetQuaternion(x, y, z, w);
+
+	position_to_rviz.pose.orientation.x=x;
+	position_to_rviz.pose.orientation.y=y;
+	position_to_rviz.pose.orientation.z=z;
+	position_to_rviz.pose.orientation.w=w; 
+
+//if(q(0)<0.5&&q(0)>-0.5&&q(1)<0.5&&q(1)>-0.5&&q(2)<0.099&&q(2)>-0.099){
+ //pose_pub.publish(position_to_rviz);
+ 	path.poses.push_back(position_to_rviz);
+ 	path_pub.publish(path);
+	pose_pub.publish(position_to_rviz);
+	//ROS_INFO("time %f v:%f prev%f pose%f",t,vx_b,prev_x,position_to_rviz.pose.position.x);
+	ros::spinOnce();
+
+    	loop_rate.sleep();
+}
+prev_x=position_to_rviz.pose.position.x;
+prev_y=position_to_rviz.pose.position.y;
+prev_z=position_to_rviz.pose.position.z;
+prev_roll=roll;
+prev_yaw=yaw;
+prev_pitch=pitch;
+
 }
 
 

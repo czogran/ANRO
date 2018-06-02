@@ -44,9 +44,9 @@ void jointCallback(const geometry_msgs::PoseStamped & poses)
 	/*l1=0.6;
 	l2=0.6;
 	h_base=0.6;
-	h_griper=0.2;*/
+	h_griper=0.2;
 
-	grip=-z+h_base-2*h_griper;
+	grip=-z+h_base-2*h_griper;*/
 
 	beta=acos((x*x+y*y-l1*l1-l2*l2)/(2*l1*l2));
 	A=y-l2*sin(beta)*x/(l1+l2*cos(beta));

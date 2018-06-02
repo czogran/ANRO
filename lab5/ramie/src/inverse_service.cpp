@@ -16,7 +16,8 @@
 
 
 
-#include <iostream>
+#include <ostream>      // std::flush
+#include <fstream> 
 #include <string>
 
 char getch() {
@@ -56,11 +57,30 @@ while (ros::ok())
   {
 	     std::system("clear");
 	ROS_INFO("podaj pozycje");
+	srv.request.type.clear();
+	 //srv.request.a;
+	 //srv.request.b.clear();
+	 //srv.request.c.clear();
 	//srv.request.type="poly";
 	std::cin>>srv.request.type;
+	if(srv.request.type=="elipse")
+		{
+	ROS_INFO("podaj parametry elpisy");
 	 std::cin>>srv.request.a;
 	  std::cin>>srv.request.b;
 	 std::cin>>srv.request.c;
+	}
+	if(srv.request.type=="square")
+	{
+		ROS_INFO("podaj parametry kwadrtu lub prostokata");
+		std::cin>>srv.request.a;
+	  std::cin>>srv.request.b;
+	 std::cin>>srv.request.c;
+	std::cin>>srv.request.x;
+	  std::cin>>srv.request.y;
+	 std::cin>>srv.request.z;
+	}	
+
 		   
 		//own_move(srv);
 	if (client.call(srv))
