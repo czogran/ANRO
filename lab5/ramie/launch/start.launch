@@ -1,0 +1,19 @@
+<launch>
+
+
+  <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find ramie)/rviz/both.rviz" />
+
+
+  <param name="use_gui" value="$(arg gui)"/>
+
+
+ 
+
+
+
+
+
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true"/>
+</launch>

@@ -1,0 +1,7 @@
+<launch>
+ 
+	
+  <node pkg="ramie" name="service" type="inverse_service" output="screen"/>
+  <node pkg="ramie" name="oint" type="inverse1" output="screen"/> 
+
+</launch>
