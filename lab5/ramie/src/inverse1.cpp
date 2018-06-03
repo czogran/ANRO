@@ -47,7 +47,9 @@ void jointCallback(const geometry_msgs::PoseStamped & poses)
 	h_griper=0.2;
 
 	grip=-z+h_base-2*h_griper;*/
-
+		if((pow(x,2)+pow(y,2))>0.16&&z>0.1&&z<0.7&&(pow(x,2)+pow(y,2))<1.4)
+{
+	grip=-z+h_base-2*h_griper;
 	beta=acos((x*x+y*y-l1*l1-l2*l2)/(2*l1*l2));
 	A=y-l2*sin(beta)*x/(l1+l2*cos(beta));
 	B=l1+l2*cos(beta)+(sin(beta)*sin(beta)*l2*l2)/(l1+l2*cos(beta));
@@ -103,6 +105,9 @@ void jointCallback(const geometry_msgs::PoseStamped & poses)
     	chatter_pub.publish(msg);
 		chatter_pub1.publish(pose1);
     //	ros::spinOnce();
+}
+else
+ROS_INFO("zle parametry");
 
 
 }
